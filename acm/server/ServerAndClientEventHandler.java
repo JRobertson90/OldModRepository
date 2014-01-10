@@ -1,26 +1,19 @@
 package acm.server;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import acm.ACM;
 import acm.item.ACMItem;
 import acm.melee.ItemShield;
-import acm.network.ACMPacketInfluence;
 import acm.player.ExtendedPlayer;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
-import cpw.mods.fml.relauncher.Side;
 
 public class ServerAndClientEventHandler {
 	
@@ -87,18 +80,20 @@ public class ServerAndClientEventHandler {
 		if(event.source.getSourceOfDamage() != null && event.source.getSourceOfDamage() instanceof EntityPlayer)
 		{
 			EntityPlayer player = (EntityPlayer) event.source.getSourceOfDamage();
-			int id = player.inventory.getCurrentItem().getItem().itemID;
-			if(player.inventory.getCurrentItem() != null && 
-			(id == ACMItem.netherAxe.itemID
-			|| id == ACMItem.netherHoe.itemID
-			|| id == ACMItem.netherPickaxe.itemID
-			|| id == ACMItem.netherShovel.itemID
-			|| id == ACMItem.netherSword.itemID
-			|| id == ACMItem.netherDagger.itemID
-			|| id == ACMItem.netherHammer.itemID
-			|| id == ACMItem.netherPoisonDagger.itemID))
-			{
-				event.entity.setFire(5);
+			ItemStack equipped = player.inventory.getCurrentItem();
+			if(player.inventory.getCurrentItem() != null) {
+				int id = equipped.getItem().itemID; 
+				if (id == ACMItem.netherAxe.itemID
+						|| id == ACMItem.netherHoe.itemID
+						|| id == ACMItem.netherPickaxe.itemID
+						|| id == ACMItem.netherShovel.itemID
+						|| id == ACMItem.netherSword.itemID
+						|| id == ACMItem.netherDagger.itemID
+						|| id == ACMItem.netherHammer.itemID
+						|| id == ACMItem.netherPoisonDagger.itemID)
+						{
+							event.entity.setFire(5);
+						}
 			}
 		}
 		if(event.entity instanceof EntityPlayer)
