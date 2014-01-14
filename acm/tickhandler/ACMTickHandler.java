@@ -7,11 +7,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import acm.ACM;
+import acm.ACMRecipes;
 import acm.item.ACMItem;
 import acm.melee.ItemShield;
 import acm.melee.ItemWarHammer;
@@ -23,6 +25,7 @@ import com.google.common.collect.Multimap;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 
 public class ACMTickHandler implements ITickHandler{
@@ -119,29 +122,28 @@ public class ACMTickHandler implements ITickHandler{
 	{
 		if(input != null)
 		{
-			if(input.itemID == ACMItem.woodShield.itemID)
+			if(input.getItem() instanceof ItemShield)
 			{
-				return 1;
-			}
-			else if(input.itemID == ACMItem.goldShield.itemID)
-			{
-				return 2;
-			}
-			else if(input.itemID == ACMItem.stoneShield.itemID)
-			{
-				return 3;
-			}
-			else if(input.itemID == ACMItem.ironShield.itemID || input.itemID == ACMItem.blueShield.itemID)
-			{
-				return 4;
-			}
-			else if(input.itemID == ACMItem.diamondShield.itemID)
-			{
-				return 5;
-			}
-			else if(input.itemID == ACMItem.netherShield.itemID)
-			{
-				return 6;
+				int maxUses = -1;
+				for(int i=0;maxUses == -1; i++)
+				{
+					try
+					{
+						maxUses = ((EnumToolMaterial) ReflectionHelper.getPrivateValue(ItemShield.class, (ItemShield) input.getItem(), i)).getMaxUses();
+					}
+					catch(Exception e)
+					{
+						;
+					}
+					
+				}
+				if(input.itemID == ACMItem.netherShield.itemID)
+				{
+					//Because the nether shield lights the enemy on fire we want it to
+					//have preference over an equal strength shield.
+					maxUses++;
+				}
+				return maxUses;
 			}
 		}
 		return 0;
