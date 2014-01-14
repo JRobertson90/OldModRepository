@@ -13,6 +13,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import acm.ACM;
 import acm.item.ACMItem;
 import acm.melee.ItemShield;
+import acm.melee.ItemWarHammer;
 import acm.player.ExtendedPlayer;
 
 public class ServerAndClientEventHandler {
@@ -104,7 +105,17 @@ public class ServerAndClientEventHandler {
 			if(player.inventory.getCurrentItem() != null && attacker != null)
 			{
 				Item iteminUse = player.inventory.getCurrentItem().getItem();
-				if(player.inventory.getCurrentItem().getItem() instanceof ItemShield && player.isUsingItem())
+				boolean attackedWithWarHammer = false;
+				if(attacker instanceof EntityPlayer)
+				{
+					EntityPlayer attackerPlayer = (EntityPlayer) attacker;
+					if(attackerPlayer.inventory.getCurrentItem() != null
+						&& attackerPlayer.inventory.getCurrentItem().getItem() instanceof ItemWarHammer)
+					{
+						attackedWithWarHammer = true;
+					}
+				}
+				if(player.inventory.getCurrentItem().getItem() instanceof ItemShield && player.isUsingItem() && !attackedWithWarHammer)
 				{
 					float attackedAtYaw = 0;
 					if (attacker != null)

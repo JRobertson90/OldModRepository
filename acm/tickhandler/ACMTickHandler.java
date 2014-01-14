@@ -77,7 +77,7 @@ public class ACMTickHandler implements ITickHandler{
         	ItemStack itemInUse = player.inventory.getCurrentItem();
         	if(itemInUse != null)
         	{
-        		if((itemInUse.getItem() instanceof ItemSword || itemInUse.getItem() instanceof ItemWarHammer))
+        		if(itemInUse.getItem() instanceof ItemSword)
             	{
         			int leftValue = 0;
         			int rightValue = 0;
