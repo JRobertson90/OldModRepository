@@ -34,7 +34,7 @@ public class ItemWarHammer extends Item
         this.setMaxDamage(par2EnumToolMaterial.getMaxUses());
         this.setUnlocalizedName(texturePrefix+"_warHammer");
         this.setCreativeTab(CreativeTabs.tabCombat);
-        this.weaponDamage = 2.0F + par2EnumToolMaterial.getDamageVsEntity();
+        this.weaponDamage = 5.0F + par2EnumToolMaterial.getDamageVsEntity();
     }
 
     public float func_82803_g()
@@ -64,11 +64,22 @@ public class ItemWarHammer extends Item
     @Override
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
     {
+    	
+    	if( ! (par3EntityLivingBase instanceof EntityPlayer)) {
+    		return false;
+    	}
+    	
+    	EntityPlayer attacker = (EntityPlayer) par3EntityLivingBase;
+    	
+    	if( ! (attacker.inventory.getCurrentItem().getItem() instanceof ItemWarHammer)) {
+    		return false;
+    	}
+    	
     	//Knockback code!!  Copied from various sections of minecraft source then tweaked some.
-    	double d0 = par3EntityLivingBase.posX - par2EntityLivingBase.posX;
+    	double d0 = attacker.posX - par2EntityLivingBase.posX;
         double d1;
 
-        for (d1 = par3EntityLivingBase.posZ - par2EntityLivingBase.posZ; d0 * d0 + d1 * d1 < 1.0E-4D; d1 = (Math.random() - Math.random()) * 0.01D)
+        for (d1 = attacker.posZ - par2EntityLivingBase.posZ; d0 * d0 + d1 * d1 < 1.0E-4D; d1 = (Math.random() - Math.random()) * 0.01D)
         {
             d0 = (Math.random() - Math.random()) * 0.01D;
         }
@@ -82,9 +93,9 @@ public class ItemWarHammer extends Item
         par2EntityLivingBase.motionX -= d0 / f1 * f2;
         par2EntityLivingBase.motionY += (double)f2/3;
         par2EntityLivingBase.motionZ -= d1 / f1 * f2;
-        par3EntityLivingBase.worldObj.playSoundAtEntity(par3EntityLivingBase, "acm:boom.boom", this.weaponDamage/10, 1.0F);
+        attacker.worldObj.playSoundAtEntity(attacker, "acm:boom.boom", this.weaponDamage/10, 1.0F);
     	//Damage item stack
-        par1ItemStack.damageItem(1, par3EntityLivingBase);
+        par1ItemStack.damageItem(1, attacker);
         return true;
     }
 
