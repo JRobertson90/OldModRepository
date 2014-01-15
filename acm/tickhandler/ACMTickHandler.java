@@ -9,11 +9,9 @@ import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
 import acm.ACM;
 import acm.item.ACMItem;
-import acm.melee.ItemShield;
 import acm.melee.ItemWarHammer;
 import acm.player.ExtendedPlayer;
 
@@ -31,15 +29,20 @@ public class ACMTickHandler implements ITickHandler{
 	
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
+		
 		EntityPlayer player = (EntityPlayer) tickData[0];
+		
 		//Get attribute information from player and get our modifier ready
 		BaseAttributeMap attributes = player.getAttributeMap();
-		AttributeModifier modifier;
+		
 		//Create our Attribute modifier, and select the value by which to increase the speed based on if they are wearing camo leggings or not.
-        modifier = new AttributeModifier(movementSpeedUID, "Camo leggings speed change", ACM.playerIsWearingItem(player, ACMItem.camoLegs) ? 0.07d : 0d, 0);
+		AttributeModifier camoPantsModifier = new AttributeModifier(movementSpeedUID, "Camo leggings speed change", ACM.playerIsWearingItem(player, ACMItem.camoLegs) ? 0.07d : 0d, 0);
+		AttributeModifier scubaFinsModifier = new AttributeModifier(movementSpeedUID, "Scuba fins speed change", ACM.playerIsWearingItem(player, ACMItem.scubaFins) && ACM.playerIsSwimming(player) ? 0.07d : 0d, 0);
+		
         //Add modifier to Multimap list
 		Multimap modifiersToAdd = ArrayListMultimap.create();
-        modifiersToAdd.put("generic.movementSpeed", modifier);
+        modifiersToAdd.put("generic.movementSpeed", camoPantsModifier);
+        modifiersToAdd.put("generic.movementSpeed", scubaFinsModifier);
         attributes.applyAttributeModifiers(modifiersToAdd);
         ExtendedPlayer props = ExtendedPlayer.get(player);
         
@@ -131,7 +134,9 @@ public class ACMTickHandler implements ITickHandler{
 			{
 				return 3;
 			}
-			else if(input.itemID == ACMItem.ironShield.itemID || input.itemID == ACMItem.blueShield.itemID)
+			else if(input.itemID == ACMItem.ironShield.itemID ||
+					input.itemID == ACMItem.blueShield.itemID ||
+					input.itemID == ACMItem.redShield.itemID)
 			{
 				return 4;
 			}

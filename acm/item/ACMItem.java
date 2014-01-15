@@ -28,24 +28,43 @@ import acm.tool.ItemNetherHoe;
 import acm.tool.ItemNetherPickaxe;
 import acm.tool.ItemNetherSpade;
 import acm.wearable.ItemCamo;
+import acm.wearable.ItemFins;
 import acm.wearable.ItemNetherArmor;
+
+//Next Available ID = 3240
 
 public class ACMItem {
 
 	public static Item netheraniumIngot = new Item(3223).setCreativeTab(CreativeTabs.tabMaterials).setUnlocalizedName("nether_ingot").setTextureName("acm:netheranium_ingot");
 	
-	public static EnumToolMaterial BLUE = EnumHelper.addToolMaterial("BLUE",2, 670, 6.0F, 2.0F, 14);
+	public static EnumToolMaterial blueTool = EnumHelper.addToolMaterial("BLUE",2, 670, 6.0F, 2.0F, 14);
+	public static EnumToolMaterial redTool = EnumHelper.addToolMaterial("RED",2, 670, 6.0F, 2.0F, 14);
+	public static EnumArmorMaterial scubaArmor = EnumHelper.addArmorMaterial("SCUBA", 10, new int[]{2,2,2,2},10);
 	public static EnumArmorMaterial CAMO = addArmorMaterialWithBlock("CAMO", 5, new int[]{0, 0, 0, 0}, 9, Block.cloth);
 	public static EnumToolMaterial netherTool = addToolMaterialWithItem("NETHER",3, 1561, 8.0F, 3.0F, 10, netheraniumIngot);
 	public static EnumArmorMaterial netherArmor = addArmorMaterialWithItem("NETHER", 33, new int[]{3, 8, 6, 3}, 10, netheraniumIngot);
 	
-	public static ItemSword blueSword = (ItemSword) (new ItemSword(3201, BLUE)).setUnlocalizedName("blueSword").setTextureName("acm:lapis_lazuli_sword");
-	public static ItemPickaxe bluePickaxe = (ItemPickaxe) (new ItemPickaxe(3202, BLUE)).setUnlocalizedName("bluePickaxe").setTextureName("acm:lapis_lazuli_pickaxe");
-	public static ItemAxe blueAxe = (ItemAxe) (new ItemAxe(3203, BLUE)).setUnlocalizedName("blueAxe").setTextureName("acm:lapis_lazuli_axe");
-	public static ItemSpade blueShovel = (ItemSpade) (new ItemSpade(3204, BLUE)).setUnlocalizedName("blueShovel").setTextureName("acm:lapis_lazuli_shovel");
-	public static ItemHoe blueHoe = (ItemHoe) (new ItemHoe(3205, BLUE)).setUnlocalizedName("blueHoe").setTextureName("acm:lapis_lazuli_hoe");
-	public static ItemWarHammer blueHammer = (ItemWarHammer) new ItemWarHammer(3208, BLUE).setUnlocalizedName("blueHammer").setTextureName("acm:lapis_lazuli_warhammer");
-	public static ItemShield blueShield = (ItemShield) new ItemShield(3212, BLUE).setUnlocalizedName("blueShield").setTextureName("acm:lapis_lazuli_shield");
+	public static ItemSword blueSword = (ItemSword) (new ItemSword(3201, blueTool)).setUnlocalizedName("blueSword").setTextureName("acm:lapis_lazuli_sword");
+	public static ItemPickaxe bluePickaxe = (ItemPickaxe) (new ItemPickaxe(3202, blueTool)).setUnlocalizedName("bluePickaxe").setTextureName("acm:lapis_lazuli_pickaxe");
+	public static ItemAxe blueAxe = (ItemAxe) (new ItemAxe(3203, blueTool)).setUnlocalizedName("blueAxe").setTextureName("acm:lapis_lazuli_axe");
+	public static ItemSpade blueShovel = (ItemSpade) (new ItemSpade(3204, blueTool)).setUnlocalizedName("blueShovel").setTextureName("acm:lapis_lazuli_shovel");
+	public static ItemHoe blueHoe = (ItemHoe) (new ItemHoe(3205, blueTool)).setUnlocalizedName("blueHoe").setTextureName("acm:lapis_lazuli_hoe");
+	public static ItemWarHammer blueHammer = (ItemWarHammer) new ItemWarHammer(3208, blueTool).setUnlocalizedName("blueHammer").setTextureName("acm:lapis_lazuli_warhammer");
+	public static ItemShield blueShield = (ItemShield) new ItemShield(3212, blueTool).setUnlocalizedName("blueShield").setTextureName("acm:lapis_lazuli_shield");
+	public static ItemDagger blueDagger = (ItemDagger) new ItemDagger(3236, false, blueTool).setUnlocalizedName("blueDagger").setTextureName("acm:lapis_lazuli_dagger");
+	public static ItemDagger bluePoisonDagger = (ItemDagger) new ItemDagger(3237, true, blueTool).setUnlocalizedName("bluePoisonousDagger").setTextureName("acm:lapis_lazuli_poisonous_dagger");
+	
+	public static Item scubaFins = new ItemFins(3227, scubaArmor, 0, 3).setUnlocalizedName("scubaFins").setCreativeTab(CreativeTabs.tabCombat).setTextureName("acm:scuba_fins");
+	
+	public static ItemSword redSword = (ItemSword) (new ItemSword(3229, redTool)).setUnlocalizedName("redSword").setTextureName("acm:redstone_sword");
+	public static ItemPickaxe redPickaxe = (ItemPickaxe) (new ItemPickaxe(3230, redTool)).setUnlocalizedName("redPickaxe").setTextureName("acm:redstone_pickaxe");
+	public static ItemAxe redAxe = (ItemAxe) (new ItemAxe(3231, redTool)).setUnlocalizedName("redAxe").setTextureName("acm:redstone_axe");
+	public static ItemSpade redShovel = (ItemSpade) (new ItemSpade(3232, redTool)).setUnlocalizedName("redShovel").setTextureName("acm:redstone_shovel");
+	public static ItemHoe redHoe = (ItemHoe) (new ItemHoe(3233, redTool)).setUnlocalizedName("redHoe").setTextureName("acm:redstone_hoe");
+	public static ItemWarHammer redHammer = (ItemWarHammer) new ItemWarHammer(3234, redTool).setUnlocalizedName("redHammer").setTextureName("acm:redstone_warhammer");
+	public static ItemShield redShield = (ItemShield) new ItemShield(3235, redTool).setUnlocalizedName("redShield").setTextureName("acm:redstone_shield");
+	public static ItemDagger redDagger = (ItemDagger) new ItemDagger(3238, false, redTool).setUnlocalizedName("redDagger").setTextureName("acm:redstone_dagger");
+	public static ItemDagger redPoisonDagger = (ItemDagger) new ItemDagger(3239, true, redTool).setUnlocalizedName("redPoisonousDagger").setTextureName("acm:redstone_poisonous_dagger");
 	
 	public static BowPort bowPort = (BowPort) new BowPort(3206).setUnlocalizedName("bowPort").setTextureName("acm:bow_port").setFull3D();
 	public static Item arrowPort = (new Item(3207)).setUnlocalizedName("arrowPort").setCreativeTab(CreativeTabs.tabCombat).setTextureName("acm:arrow_port");
@@ -69,8 +88,6 @@ public class ACMItem {
 	public static ItemDagger netherDagger = new ItemNetherDagger(3225, false);
 	public static ItemDagger netherPoisonDagger = new ItemNetherDagger(3226, true);
 	
-	//Next Available ID = 3227
-
 	public static Item chainCluster = new Item(5000).setCreativeTab(CreativeTabs.tabMaterials).setUnlocalizedName("chainCluster").setTextureName("acm:chaincluster");
 	public static ItemWarHammer woodHammer = new ItemWarHammer(5001, EnumToolMaterial.WOOD);
 	public static ItemWarHammer stoneHammer = new ItemWarHammer(5002, EnumToolMaterial.STONE);

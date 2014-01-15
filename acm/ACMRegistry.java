@@ -17,6 +17,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ACMRegistry {
+	
 	public static void load()
 	{
 
@@ -32,6 +33,21 @@ public class ACMRegistry {
 		GameRegistry.registerItem(ACMItem.blueHoe, "blue_hoe");
 		GameRegistry.registerItem(ACMItem.blueHammer, "blue_hammer");
 		GameRegistry.registerItem(ACMItem.blueShield, "blue_shield");
+		GameRegistry.registerItem(ACMItem.blueDagger, "blue_dagger");
+		GameRegistry.registerItem(ACMItem.bluePoisonDagger, "blue_poison_dagger");
+		
+		GameRegistry.registerItem(ACMItem.redSword, "red_sword");
+		GameRegistry.registerItem(ACMItem.redPickaxe, "red_pickaxe");
+		GameRegistry.registerItem(ACMItem.redAxe, "red_axe");
+		GameRegistry.registerItem(ACMItem.redShovel, "red_shovel");
+		GameRegistry.registerItem(ACMItem.redHoe, "red_hoe");
+		GameRegistry.registerItem(ACMItem.redHammer, "red_hammer");
+		GameRegistry.registerItem(ACMItem.redShield, "red_shield");
+		GameRegistry.registerItem(ACMItem.redDagger, "red_dagger");
+		GameRegistry.registerItem(ACMItem.redPoisonDagger, "red_poison_dagger");
+		
+		GameRegistry.registerItem(ACMItem.scubaFins, "blue_fins");
+		
 		GameRegistry.registerItem(ACMItem.arrowPort, "arrow_port");
 		GameRegistry.registerItem(ACMItem.bowPort, "bow_port");
 		GameRegistry.registerBlock(ACMBlock.christmasChest, "christmas_chest");
@@ -62,6 +78,20 @@ public class ACMRegistry {
 		LanguageRegistry.addName(ACMItem.blueHoe, "Lapis Lazuli Hoe");
 		LanguageRegistry.addName(ACMItem.blueHammer, "Lapis Lazuli Hammer");
 		LanguageRegistry.addName(ACMItem.blueShield, "Lapis Lazuli Shield");
+		LanguageRegistry.addName(ACMItem.blueDagger, "Lapis Lazuli Dagger");
+		LanguageRegistry.addName(ACMItem.bluePoisonDagger, "Lapis Lazuli Poisonous Dagger");
+		
+		LanguageRegistry.addName(ACMItem.redSword, "Redstone Sword");
+		LanguageRegistry.addName(ACMItem.redPickaxe, "Redstone Pickaxe");
+		LanguageRegistry.addName(ACMItem.redAxe, "Redstone Axe");
+		LanguageRegistry.addName(ACMItem.redShovel, "Redstone Shovel");
+		LanguageRegistry.addName(ACMItem.redHoe, "Redstone Hoe");
+		LanguageRegistry.addName(ACMItem.redHammer, "Redstone Hammer");
+		LanguageRegistry.addName(ACMItem.redShield, "Redstone Shield");
+		LanguageRegistry.addName(ACMItem.redDagger, "Redstone Dagger");
+		LanguageRegistry.addName(ACMItem.redPoisonDagger, "Redstone Poisonous Dagger");
+		
+		LanguageRegistry.addName(ACMItem.scubaFins, "Scuba Fins");
 		LanguageRegistry.addName(ACMItem.arrowPort, "Arrow Port");
 		LanguageRegistry.addName(ACMItem.bowPort, "Bow Port");
 		LanguageRegistry.addName(ACMBlock.christmasChest, "Christmas Chest");

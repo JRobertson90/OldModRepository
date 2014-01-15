@@ -24,6 +24,10 @@ public class ACMPacketHandler implements IPacketHandler{
 				{
 					ACMPacketInfluence.superJump(ACM.getPlayerFromUsername(packetMessage.split(":")[1]));
 				}
+				else if(packetMessage.startsWith("scubaswim:"))
+				{
+					ACMPacketInfluence.scubaSwim(ACM.getPlayerFromUsername(packetMessage.split(":")[1]));
+				}
 			}
 //			//Client side
 //			else

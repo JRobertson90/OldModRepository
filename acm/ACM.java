@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
@@ -22,6 +23,8 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import acm.block.ACMBlock;
@@ -225,5 +228,11 @@ public class ACM {
 			}
 		}
 		return false;
+	}
+
+	public static boolean playerIsSwimming(EntityPlayer player) {
+		
+		ChunkCoordinates coord = player.getPlayerCoordinates();
+		return player.worldObj.getBlockMaterial(coord.posX, coord.posY, coord.posZ) == Material.water;
 	}
 }

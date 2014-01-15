@@ -37,6 +37,20 @@ public class ACMRecipes {
 		addHoeRecipe(lapis, ACMItem.blueHoe);
 		addWarhammerRecipe(lapis, ACMItem.blueHammer);
 		addShieldRecipe(lapis, ACMItem.blueShield);
+		addDaggerRecipe(lapis, ACMItem.blueDagger);
+		addPoisonDaggerRecipe(lapis, ACMItem.bluePoisonDagger);
+		
+		addSwordRecipe(Item.redstone, ACMItem.redSword);
+		addPickaxeRecipe(Item.redstone, ACMItem.redPickaxe);
+		addShovelRecipe(Item.redstone, ACMItem.redShovel);
+		addAxeRecipe(Item.redstone, ACMItem.redAxe);
+		addHoeRecipe(Item.redstone, ACMItem.redHoe);
+		addWarhammerRecipe(Item.redstone, ACMItem.redHammer);
+		addShieldRecipe(Item.redstone, ACMItem.redShield);
+		addDaggerRecipe(Item.redstone, ACMItem.redDagger);
+		addPoisonDaggerRecipe(Item.redstone, ACMItem.redPoisonDagger);
+		
+		GameRegistry.addRecipe(new ItemStack(ACMItem.scubaFins, 1), new Object[] { "# #", "# #", '#', lapis });
 		
 		addSwordRecipe(ACMItem.netherSword);
 		addPickaxeRecipe(ACMItem.netherPickaxe);
@@ -194,7 +208,6 @@ public class ACMRecipes {
 	public static void addDaggerRecipe(Object material, ItemDagger output)
 	{
 		GameRegistry.addRecipe(new ItemStack(output, 1), "x", "s", 'x', material, 's', Item.stick);
-		addPoisonDaggerRecipe(material, output);
 	}
 	
 	private static void addPoisonDaggerRecipe(Object material, Item output)

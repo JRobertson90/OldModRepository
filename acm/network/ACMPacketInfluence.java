@@ -29,9 +29,23 @@ public class ACMPacketInfluence {
 		}
 	}
 	
-//	public static void manuallyFlashStamina(EntityPlayer player)
-//	{
-//		ExtendedPlayer props = ExtendedPlayer.get(player);
-//		props.flashingTicksRemaining = props.flashingTicksMax;
-//	}
+	public static void scubaSwim(EntityPlayer player) {
+
+		if(ACM.playerIsWearingItem(player, ACMItem.camoLegs) /*&& ACM.playerIsNotWearingMetal(player)*/)
+		{
+			ExtendedPlayer props = ExtendedPlayer.get(player);
+			player.motionX *= 2.0D;
+			player.motionZ *= 2.0D;
+			if(FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT))
+			{
+				PacketDispatcher.sendPacketToServer(ACM.buildStringPacket("scubaswim:"+player.username));
+			}
+		}
+	}
+
+	//	public static void manuallyFlashStamina(EntityPlayer player)
+	//	{
+	//		ExtendedPlayer props = ExtendedPlayer.get(player);
+	//		props.flashingTicksRemaining = props.flashingTicksMax;
+	//	}
 }
