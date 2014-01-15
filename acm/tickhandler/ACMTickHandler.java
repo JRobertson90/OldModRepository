@@ -30,36 +30,25 @@ import cpw.mods.fml.relauncher.Side;
 
 public class ACMTickHandler implements ITickHandler{
 
-	private static final UUID movementSpeedUID = UUID.fromString("206a89dc-ae78-4c4d-b42c-3b31db3f5a7c");
 	
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer player = (EntityPlayer) tickData[0];
-		//Get attribute information from player and get our modifier ready
-		BaseAttributeMap attributes = player.getAttributeMap();
-		AttributeModifier modifier;
-		//Create our Attribute modifier, and select the value by which to increase the speed based on if they are wearing camo leggings or not.
-        modifier = new AttributeModifier(movementSpeedUID, "Camo leggings speed change", ACM.playerIsWearingItem(player, ACMItem.camoLegs) ? 0.07d : 0d, 0);
-        //Add modifier to Multimap list
-		Multimap modifiersToAdd = ArrayListMultimap.create();
-        modifiersToAdd.put("generic.movementSpeed", modifier);
-        attributes.applyAttributeModifiers(modifiersToAdd);
-        ExtendedPlayer props = ExtendedPlayer.get(player);
-        
-        int netherArmorCount = 0;
-        netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherHelm) ? 1 : 0;
-        netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherPlate) ? 1 : 0;
-		netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherLegs) ? 1 : 0;
-		netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherBoots) ? 1 : 0;
-        if(netherArmorCount>0)
+		ExtendedPlayer props = ExtendedPlayer.get(player);
+		if(player.inventory.inventoryChanged)
+		{
+			props.onInventoryChanged();
+			player.inventory.inventoryChanged = false;
+		}
+		if(props.netherArmorCount>0)
         {
         	double randomValue = Math.random();
-        	if(randomValue <= (double) netherArmorCount * 0.125)
+        	if(randomValue <= (double) props.netherArmorCount * 0.125)
         	{
         		player.worldObj.spawnParticle("flame", player.posX-0.6+Math.random()*1.2, player.posY-0.5-Math.random()*0.5, player.posZ-0.6+Math.random()*1.2, 0, 0.15*Math.random(), 0);
             	player.worldObj.spawnParticle("smoke", player.posX-0.6+Math.random()*1.2, player.posY-0.5-Math.random()*0.5, player.posZ-0.6+Math.random()*1.2, 0, 0.15*Math.random(), 0);
         	}
-        	if(netherArmorCount == 4)
+        	if(props.netherArmorCount == 4)
         	{
         		player.extinguish();
         	}

@@ -67,11 +67,8 @@ public class ServerAndClientEventHandler {
 		if(event.source.isFireDamage() && event.entity instanceof EntityPlayer)
 		{
 			EntityPlayer player = (EntityPlayer) event.entity;
-			int netherArmorCount = 0;
-	        netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherHelm) ? 1 : 0;
-	        netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherPlate) ? 1 : 0;
-			netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherLegs) ? 1 : 0;
-			netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherBoots) ? 1 : 0;
+			ExtendedPlayer props = ExtendedPlayer.get(player);
+			int netherArmorCount = props.netherArmorCount;
 			double randomValue = Math.random();
 			if((double) netherArmorCount * 0.25 >= randomValue)
 			{
