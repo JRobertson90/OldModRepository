@@ -84,22 +84,6 @@ public class ACM {
 		
 	}
 	
-	public static boolean playerIsNotWearingMetal(EntityPlayer player)
-	{
-		for(int i = 0;i<player.inventory.armorInventory.length; i++)
-		{
-			if(player.inventory.armorInventory[i]!=null && player.inventory.armorInventory[i].getItem() instanceof ItemArmor)
-			{
-				ItemArmor worn = (ItemArmor) player.inventory.armorInventory[i].getItem();
-				if(!worn.getArmorMaterial().equals(ACMItem.CAMO) && !worn.getArmorMaterial().equals(EnumArmorMaterial.CLOTH))
-				{
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-	
 	public static void RemoveRecipe(ItemStack resultItem) //Code by yope_fried inspired by pigalot, modified by jayperdu
 	{
 	    ItemStack recipeResult = null;
