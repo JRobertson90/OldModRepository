@@ -37,10 +37,13 @@ public class ItemFins extends ItemArmor {
 	// Gets called from the tick handler
 	public void action(EntityPlayer player) {
 
+		if( ! player.worldObj.isRemote) {
+			return;
+		}
 		if (Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindForward.keyCode))
 		{
 			float MAG = 0.325F;
-			double angle = Minecraft.getMinecraft().thePlayer.getRotationYawHead();
+			double angle = player.getRotationYawHead();
 			while (angle >= 0.0D) {
 				angle -= 360.0D;
 			}
@@ -50,15 +53,15 @@ public class ItemFins extends ItemArmor {
 			angle += 90.0D;
 			angle = Math.toRadians(angle);
 
-			if (Minecraft.getMinecraft().thePlayer.isInWater())
+			if (player.isInWater())
 			{
-				Minecraft.getMinecraft().thePlayer.motionX = (Math.cos(angle) * MAG);
-				Minecraft.getMinecraft().thePlayer.motionZ = (Math.sin(angle) * MAG);
+				player.motionX = (Math.cos(angle) * MAG);
+				player.motionZ = (Math.sin(angle) * MAG);
 			}
 			else
 			{
-				Minecraft.getMinecraft().thePlayer.motionX = (Math.cos(angle) * 0.1000000014901161D);
-				Minecraft.getMinecraft().thePlayer.motionZ = (Math.sin(angle) * 0.1000000014901161D);
+				player.motionX = (Math.cos(angle) * 0.1000000014901161D);
+				player.motionZ = (Math.sin(angle) * 0.1000000014901161D);
 			}
 		}
 	}
