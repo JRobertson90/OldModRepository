@@ -1,10 +1,19 @@
 package acm.player;
 
+import java.util.UUID;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import acm.ACM;
+import acm.item.ACMItem;
 import acm.network.ACMPacketInfluence;
 
 public class ExtendedPlayer implements IExtendedEntityProperties
@@ -13,25 +22,13 @@ public final static String EXT_PROP_NAME = "XJ_ACM";
 
 private final EntityPlayer player;
 
-//public static final int stamina_watcher = 20;
-//public static final int stamina_cooldown_watcher = 21;
-
 public int weaponToReturnTo = 9;
-//public int flashingTicksRemaining = 0;
-//public static int flashingTicksMax = 40;
-//public static int maxStamina = 200;
-//public static int staminaRegen = 6;
-//public static int maxStaminaRegenCooldown = 20;
-//public static int blockStaminaCost = 30;
-//public final String nbtName = "stamina";
-//public final String nbtCooldownName = "staminaCooldown";
-//public final String nbtFlashingName = "staminaFlashing";
+public int netherArmorCount = 0;
+public boolean wasInitialized = false;
 
 	public ExtendedPlayer(EntityPlayer player)
 	{
 		this.player = player;
-//		this.player.getDataWatcher().addObject(stamina_watcher, this.maxStamina);
-//		this.player.getDataWatcher().addObject(stamina_cooldown_watcher, 0);
 	}
 
 /**
@@ -75,8 +72,6 @@ public int weaponToReturnTo = 9;
 		// Here we fetch the unique tag compound we set for this class of Extended Properties
 		NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_PROP_NAME);
 		// Get our data from the custom tag compound
-//		this.player.getDataWatcher().updateObject(stamina_watcher, properties.getInteger(nbtName));
-//		this.player.getDataWatcher().updateObject(stamina_cooldown_watcher, properties.getInteger(nbtCooldownName));
 	}
 
 	@Override
@@ -85,75 +80,40 @@ public int weaponToReturnTo = 9;
 		
 	}
 	
-//	public final int getStamina()
-//	{
-//		return this.player.getDataWatcher().getWatchableObjectInt(stamina_watcher);
-//	}
+	public void tickInitialize()
+	{
+		this.onInventoryChanged();
+		this.wasInitialized = true;
+	}
 	
-//	public final int getFlashingTicksRemaining()
-//	{
-//		return flashingTicksRemaining;
-//	}
-//	public final void reduceFlashingTicksRemaining()
-//	{
-//		flashingTicksRemaining--;
-//	}
-//	
-//	public boolean checkAndUseStamina(int staminaToUse)
-//	{
-//		int stamina = this.player.getDataWatcher().getWatchableObjectInt(stamina_watcher);
-//		int staminaRegenCooldownRemaining = this.player.getDataWatcher().getWatchableObjectInt(stamina_cooldown_watcher);
-//		if(player.capabilities.isCreativeMode)
-//		{
-//			return true;
-//		}
-//		if(stamina>=staminaToUse)
-//		{
-//			stamina -= staminaToUse;
-//			staminaRegenCooldownRemaining = maxStaminaRegenCooldown;
-//			this.player.getDataWatcher().updateObject(stamina_watcher, stamina);
-//			this.player.getDataWatcher().updateObject(stamina_cooldown_watcher, staminaRegenCooldownRemaining);
-//			return true;	
-//		}
-//		ACMPacketInfluence.manuallyFlashStamina(player);
-//		return false;
-//	}
-//	
-//	public void regenerateStamina()
-//	{
-//		int stamina = this.player.getDataWatcher().getWatchableObjectInt(stamina_watcher);
-//		int staminaRegenCooldownRemaining = this.player.getDataWatcher().getWatchableObjectInt(stamina_cooldown_watcher);
-//        if(stamina<maxStamina)
-//        {
-//        	if(staminaRegenCooldownRemaining <= 0)
-//        	{
-//        		//This code prevents overflow of the stamina bar, if the bar is about to overflow just set it equal to max stamina.
-//        		if(maxStamina-stamina<staminaRegen)
-//            	{
-//        			stamina = maxStamina;
-//            	}
-//            	else
-//            	{
-//            		stamina += staminaRegen;
-//            	}
-//        	}
-//        	else
-//        	{
-//        		if(staminaRegenCooldownRemaining>0)
-//        		{
-//        			staminaRegenCooldownRemaining -=1;
-//        		}
-//        	}
-//        	int preStamina = this.player.getDataWatcher().getWatchableObjectInt(stamina_watcher);
-//    		int preStaminaRegenCooldownRemaining = this.player.getDataWatcher().getWatchableObjectInt(stamina_cooldown_watcher);
-//    		if(preStamina != stamina)
-//    		{
-//    			this.player.getDataWatcher().updateObject(stamina_watcher, stamina);
-//    		}
-//        	if(preStaminaRegenCooldownRemaining != staminaRegenCooldownRemaining)
-//        	{
-//        		this.player.getDataWatcher().updateObject(stamina_cooldown_watcher, staminaRegenCooldownRemaining);
-//        	}
-//        }
-//	}
+	public void onInventoryChanged()
+	{
+		//
+		//Begin stealth leggings code
+		//
+		final UUID movementSpeedUID = UUID.fromString("206a89dc-ae78-4c4d-b42c-3b31db3f5a7c");
+		//Get attribute information from player and get our modifier ready
+		BaseAttributeMap attributes = player.getAttributeMap();
+		AttributeModifier modifier;
+		//Create our Attribute modifier, and select the value by which to increase the speed based on if they are wearing camo leggings or not.
+        modifier = new AttributeModifier(movementSpeedUID, "Camo leggings speed change", ACM.playerIsWearingItem(player, ACMItem.camoLegs) ? 0.07d : 0.05d, 0);
+        //Add modifier to Multimap list
+		Multimap modifiersToAdd = ArrayListMultimap.create();
+        modifiersToAdd.put("generic.movementSpeed", modifier);
+        attributes.applyAttributeModifiers(modifiersToAdd);
+        //
+        //End stealth leggings code
+        //
+        //Begin Nether armor counting code
+        //
+        int armorCount = 0;
+        armorCount += ACM.playerIsWearingItem(player, ACMItem.netherHelm) ? 1 : 0;
+        armorCount += ACM.playerIsWearingItem(player, ACMItem.netherPlate) ? 1 : 0;
+		armorCount += ACM.playerIsWearingItem(player, ACMItem.netherLegs) ? 1 : 0;
+		armorCount += ACM.playerIsWearingItem(player, ACMItem.netherBoots) ? 1 : 0;
+        this.netherArmorCount = armorCount;
+        //
+        //End Nether armor counting code
+        //
+	}
 }

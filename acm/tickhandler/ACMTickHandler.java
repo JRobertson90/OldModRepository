@@ -7,12 +7,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.world.World;
 import acm.ACM;
 import acm.item.ACMItem;
-import acm.melee.ItemWarHammer;
+import acm.melee.ItemShield;
 import acm.player.ExtendedPlayer;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -21,6 +21,7 @@ import com.google.common.collect.Multimap;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 
 public class ACMTickHandler implements ITickHandler{
@@ -51,15 +52,24 @@ public class ACMTickHandler implements ITickHandler{
         netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherPlate) ? 1 : 0;
 		netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherLegs) ? 1 : 0;
 		netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherBoots) ? 1 : 0;
-        if(netherArmorCount>0)
-        {
+		if(player.inventory.inventoryChanged)
+		{
+			props.onInventoryChanged();
+			player.inventory.inventoryChanged = false;
+		}
+		if(!props.wasInitialized)
+		{
+			props.tickInitialize();
+		}
+		if(props.netherArmorCount>0)
+		{
         	double randomValue = Math.random();
-        	if(randomValue <= (double) netherArmorCount * 0.125)
+        	if(randomValue <= (double) props.netherArmorCount * 0.125)
         	{
         		player.worldObj.spawnParticle("flame", player.posX-0.6+Math.random()*1.2, player.posY-0.5-Math.random()*0.5, player.posZ-0.6+Math.random()*1.2, 0, 0.15*Math.random(), 0);
             	player.worldObj.spawnParticle("smoke", player.posX-0.6+Math.random()*1.2, player.posY-0.5-Math.random()*0.5, player.posZ-0.6+Math.random()*1.2, 0, 0.15*Math.random(), 0);
         	}
-        	if(netherArmorCount == 4)
+        	if(props.netherArmorCount == 4)
         	{
         		player.extinguish();
         	}
@@ -80,7 +90,7 @@ public class ACMTickHandler implements ITickHandler{
         	ItemStack itemInUse = player.inventory.getCurrentItem();
         	if(itemInUse != null)
         	{
-        		if((itemInUse.getItem() instanceof ItemSword || itemInUse.getItem() instanceof ItemWarHammer))
+        		if(itemInUse.getItem() instanceof ItemSword)
             	{
         			int leftValue = 0;
         			int rightValue = 0;
@@ -147,6 +157,30 @@ public class ACMTickHandler implements ITickHandler{
 			else if(input.itemID == ACMItem.netherShield.itemID)
 			{
 				return 6;
+			}
+
+			if(input.getItem() instanceof ItemShield)
+			{
+				int maxUses = -1;
+				for(int i=0;maxUses == -1; i++)
+				{
+					try
+					{
+						maxUses = ((EnumToolMaterial) ReflectionHelper.getPrivateValue(ItemShield.class, (ItemShield) input.getItem(), i)).getMaxUses();
+					}
+					catch(Exception e)
+					{
+						;
+					}
+					
+				}
+				if(input.itemID == ACMItem.netherShield.itemID)
+				{
+					//Because the nether shield lights the enemy on fire we want it to
+					//have preference over an equal strength shield.
+					maxUses++;
+				}
+				return maxUses;
 			}
 		}
 		return 0;

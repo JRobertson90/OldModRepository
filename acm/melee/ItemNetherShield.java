@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
 
-public class ItemNetherShield extends ItemShield{
+public class ItemNetherShield extends ItemShield {
 
 	public ItemNetherShield(int par1) {
 		super(par1, ACMItem.netherTool);

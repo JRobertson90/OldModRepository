@@ -63,18 +63,8 @@ public class ItemWarHammer extends Item
      */
     @Override
 	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase)
-    {
-    	
-    	if( ! (par3EntityLivingBase instanceof EntityPlayer)) {
-    		return false;
-    	}
-    	
-    	EntityPlayer attacker = (EntityPlayer) par3EntityLivingBase;
-    	
-    	if( ! (attacker.inventory.getCurrentItem().getItem() instanceof ItemWarHammer)) {
-    		return false;
-    	}
-    	
+    {    	
+    	EntityLivingBase attacker = par3EntityLivingBase;	
     	//Knockback code!!  Copied from various sections of minecraft source then tweaked some.
     	double d0 = attacker.posX - par2EntityLivingBase.posX;
         double d1;

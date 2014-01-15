@@ -13,7 +13,9 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import acm.ACM;
 import acm.item.ACMItem;
 import acm.melee.ItemShield;
+import acm.melee.ItemWarHammer;
 import acm.player.ExtendedPlayer;
+import acm.tool.ItemNetherTool;
 
 public class ServerAndClientEventHandler {
 	
@@ -21,14 +23,16 @@ public class ServerAndClientEventHandler {
 	@ForgeSubscribe
 	public void onEntityConstructing(EntityConstructing event)
 	{
-		if (event.entity instanceof EntityPlayer && ExtendedPlayer.get((EntityPlayer) event.entity) == null)
+		if (event.entity instanceof EntityPlayer)
 		{
-			ExtendedPlayer.register((EntityPlayer) event.entity);
-		}
-			
-		if (event.entity instanceof EntityPlayer && event.entity.getExtendedProperties(ExtendedPlayer.EXT_PROP_NAME) == null)
-		{
-			event.entity.registerExtendedProperties(ExtendedPlayer.EXT_PROP_NAME, new ExtendedPlayer((EntityPlayer) event.entity));
+			if(ExtendedPlayer.get((EntityPlayer) event.entity) == null)
+			{
+				ExtendedPlayer.register((EntityPlayer) event.entity);
+			}
+			if(event.entity.getExtendedProperties(ExtendedPlayer.EXT_PROP_NAME) == null)
+			{
+				event.entity.registerExtendedProperties(ExtendedPlayer.EXT_PROP_NAME, new ExtendedPlayer((EntityPlayer) event.entity));
+			}
 		}
 	}
 	
@@ -66,11 +70,8 @@ public class ServerAndClientEventHandler {
 		if(event.source.isFireDamage() && event.entity instanceof EntityPlayer)
 		{
 			EntityPlayer player = (EntityPlayer) event.entity;
-			int netherArmorCount = 0;
-	        netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherHelm) ? 1 : 0;
-	        netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherPlate) ? 1 : 0;
-			netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherLegs) ? 1 : 0;
-			netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherBoots) ? 1 : 0;
+			ExtendedPlayer props = ExtendedPlayer.get(player);
+			int netherArmorCount = props.netherArmorCount;
 			double randomValue = Math.random();
 			if((double) netherArmorCount * 0.25 >= randomValue)
 			{
@@ -82,18 +83,10 @@ public class ServerAndClientEventHandler {
 			EntityPlayer player = (EntityPlayer) event.source.getSourceOfDamage();
 			ItemStack equipped = player.inventory.getCurrentItem();
 			if(player.inventory.getCurrentItem() != null) {
-				int id = equipped.getItem().itemID; 
-				if (id == ACMItem.netherAxe.itemID
-						|| id == ACMItem.netherHoe.itemID
-						|| id == ACMItem.netherPickaxe.itemID
-						|| id == ACMItem.netherShovel.itemID
-						|| id == ACMItem.netherSword.itemID
-						|| id == ACMItem.netherDagger.itemID
-						|| id == ACMItem.netherHammer.itemID
-						|| id == ACMItem.netherPoisonDagger.itemID)
-						{
-							event.entity.setFire(5);
-						}
+				if (equipped.getItem() instanceof ItemNetherTool)
+				{
+					event.entity.setFire(5);
+				}
 			}
 		}
 		if(event.entity instanceof EntityPlayer)
@@ -104,7 +97,17 @@ public class ServerAndClientEventHandler {
 			if(player.inventory.getCurrentItem() != null && attacker != null)
 			{
 				Item iteminUse = player.inventory.getCurrentItem().getItem();
-				if(player.inventory.getCurrentItem().getItem() instanceof ItemShield && player.isUsingItem())
+				boolean attackedWithWarHammer = false;
+				if(attacker instanceof EntityPlayer)
+				{
+					EntityPlayer attackerPlayer = (EntityPlayer) attacker;
+					if(attackerPlayer.inventory.getCurrentItem() != null
+						&& attackerPlayer.inventory.getCurrentItem().getItem() instanceof ItemWarHammer)
+					{
+						attackedWithWarHammer = true;
+					}
+				}
+				if(player.inventory.getCurrentItem().getItem() instanceof ItemShield && player.isUsingItem() && !attackedWithWarHammer)
 				{
 					float attackedAtYaw = 0;
 					if (attacker != null)
@@ -129,43 +132,36 @@ public class ServerAndClientEventHandler {
 					}
 					if(inRange)
 					{
-//						if(props.checkAndUseStamina(ExtendedPlayer.blockStaminaCost))
-//						{
-							if(!(player.inventory.getCurrentItem().itemID == ACMItem.woodShield.itemID && attacker.isBurning()))
-							{
-								//Knockback code!!  Copied from various sections of minecraft source then tweaked some.
-						    	double d0 = player.posX - attacker.posX;
-						        double d1;
+						if(!(player.inventory.getCurrentItem().itemID == ACMItem.woodShield.itemID && attacker.isBurning()))
+						{
+							//Knockback code!!  Copied from various sections of minecraft source then tweaked some.
+					    	double d0 = player.posX - attacker.posX;
+					        double d1;
 
-						        for (d1 = player.posZ - attacker.posZ; d0 * d0 + d1 * d1 < 1.0E-4D; d1 = (Math.random() - Math.random()) * 0.01D)
-						        {
-						            d0 = (Math.random() - Math.random()) * 0.01D;
-						        }
-						        attacker.isAirBorne = true;
-						    	final float knockbackStrengthFactor = 5.0F/1.5F;
-						        float f1 = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
-						        float f2 = 0.8f;
-						        if(!(attacker instanceof IProjectile))
-						        {
-						        	attacker.motionX /= 2.0D;
-							        attacker.motionY /= 2.0D;
-							        attacker.motionZ /= 2.0D;
-							        attacker.motionX -= d0 / f1 * f2;
-							        attacker.motionY += (double)f2/3;
-							        attacker.motionZ -= d1 / f1 * f2;
-						        }
-						        if(player.inventory.getCurrentItem().itemID == ACMItem.netherShield.itemID)
-						        {
-						        	attacker.setFire(5);
-						        }
-								event.setCanceled(true);
-								player.inventory.getCurrentItem().damageItem(1, player);
-							}
-//						}
-//						else
-//						{
-//							PacketDispatcher.sendPacketToPlayer(ACM.buildStringPacket("flashStamina"), (Player) player);
-//						}
+					        for (d1 = player.posZ - attacker.posZ; d0 * d0 + d1 * d1 < 1.0E-4D; d1 = (Math.random() - Math.random()) * 0.01D)
+					        {
+					            d0 = (Math.random() - Math.random()) * 0.01D;
+					        }
+					        attacker.isAirBorne = true;
+					    	final float knockbackStrengthFactor = 5.0F/1.5F;
+					        float f1 = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
+					        float f2 = 0.8f;
+					        if(!(attacker instanceof IProjectile))
+					        {
+					        	attacker.motionX /= 2.0D;
+						        attacker.motionY /= 2.0D;
+						        attacker.motionZ /= 2.0D;
+						        attacker.motionX -= d0 / f1 * f2;
+						        attacker.motionY += (double)f2/3;
+						        attacker.motionZ -= d1 / f1 * f2;
+					        }
+					        if(player.inventory.getCurrentItem().itemID == ACMItem.netherShield.itemID)
+					        {
+					        	attacker.setFire(5);
+					        }
+							event.setCanceled(true);
+							player.inventory.getCurrentItem().damageItem(1, player);
+						}
 					}
 				}
 			}
