@@ -3,12 +3,13 @@ package acm.melee;
 import java.util.List;
 
 import acm.item.ACMItem;
+import acm.tool.ItemNetherTool;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 
-public class ItemNetherSword extends ItemSword{
+public class ItemNetherSword extends ItemSword implements ItemNetherTool{
 
 	public ItemNetherSword(int par1) {
 		super(par1, ACMItem.netherTool);

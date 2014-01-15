@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 
-public class ItemNetherPickaxe extends ItemPickaxe {
+public class ItemNetherPickaxe extends ItemPickaxe implements ItemNetherTool{
 
 	public ItemNetherPickaxe(int par1) {
 		super(par1, ACMItem.netherTool);

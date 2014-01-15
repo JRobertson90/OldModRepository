@@ -7,7 +7,7 @@ import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import acm.item.ACMItem;
 
-public class ItemNetherSpade extends ItemSpade {
+public class ItemNetherSpade extends ItemSpade implements ItemNetherTool {
 
 	public ItemNetherSpade(int par1) {
 		super(par1, ACMItem.netherTool);

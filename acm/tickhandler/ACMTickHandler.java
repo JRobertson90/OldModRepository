@@ -40,6 +40,10 @@ public class ACMTickHandler implements ITickHandler{
 			props.onInventoryChanged();
 			player.inventory.inventoryChanged = false;
 		}
+		if(!props.wasInitialized)
+		{
+			props.tickInitialize();
+		}
 		if(props.netherArmorCount>0)
         {
         	double randomValue = Math.random();

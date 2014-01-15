@@ -7,7 +7,7 @@ import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import acm.item.ACMItem;
 
-public class ItemNetherHoe extends ItemHoe {
+public class ItemNetherHoe extends ItemHoe implements ItemNetherTool{
 
 	public ItemNetherHoe(int par1) {
 		super(par1, ACMItem.netherTool);

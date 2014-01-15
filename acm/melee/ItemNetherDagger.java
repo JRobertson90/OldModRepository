@@ -5,8 +5,9 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import acm.item.ACMItem;
+import acm.tool.ItemNetherTool;
 
-public class ItemNetherDagger extends ItemDagger{
+public class ItemNetherDagger extends ItemDagger implements ItemNetherTool {
 
 	public ItemNetherDagger(int par1, boolean poisonous) {
 		super(par1, poisonous, ACMItem.netherTool);

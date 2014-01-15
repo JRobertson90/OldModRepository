@@ -24,6 +24,7 @@ private final EntityPlayer player;
 
 public int weaponToReturnTo = 9;
 public int netherArmorCount = 0;
+public boolean wasInitialized = false;
 
 	public ExtendedPlayer(EntityPlayer player)
 	{
@@ -79,8 +80,17 @@ public int netherArmorCount = 0;
 		
 	}
 	
+	public void tickInitialize()
+	{
+		this.onInventoryChanged();
+		this.wasInitialized = true;
+	}
+	
 	public void onInventoryChanged()
 	{
+		//
+		//Begin stealth leggings code
+		//
 		final UUID movementSpeedUID = UUID.fromString("206a89dc-ae78-4c4d-b42c-3b31db3f5a7c");
 		//Get attribute information from player and get our modifier ready
 		BaseAttributeMap attributes = player.getAttributeMap();
@@ -91,11 +101,19 @@ public int netherArmorCount = 0;
 		Multimap modifiersToAdd = ArrayListMultimap.create();
         modifiersToAdd.put("generic.movementSpeed", modifier);
         attributes.applyAttributeModifiers(modifiersToAdd);
+        //
+        //End stealth leggings code
+        //
+        //Begin Nether armor counting code
+        //
         int armorCount = 0;
         armorCount += ACM.playerIsWearingItem(player, ACMItem.netherHelm) ? 1 : 0;
         armorCount += ACM.playerIsWearingItem(player, ACMItem.netherPlate) ? 1 : 0;
 		armorCount += ACM.playerIsWearingItem(player, ACMItem.netherLegs) ? 1 : 0;
 		armorCount += ACM.playerIsWearingItem(player, ACMItem.netherBoots) ? 1 : 0;
         this.netherArmorCount = armorCount;
+        //
+        //End Nether armor counting code
+        //
 	}
 }

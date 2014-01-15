@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 
-public class ItemNetherAxe extends ItemAxe {
+public class ItemNetherAxe extends ItemAxe implements ItemNetherTool{
 
 	public ItemNetherAxe(int par1) {
 		super(par1, ACMItem.netherTool);
