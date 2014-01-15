@@ -4,16 +4,19 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.server.MinecraftServer;
 import acm.ACM;
 import acm.item.ACMItem;
 import acm.melee.ItemShield;
 import acm.player.ExtendedPlayer;
+import acm.wearable.ItemFins;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -38,12 +41,12 @@ public class ACMTickHandler implements ITickHandler{
 		
 		//Create our Attribute modifier, and select the value by which to increase the speed based on if they are wearing camo leggings or not.
 		AttributeModifier camoPantsModifier = new AttributeModifier(movementSpeedUID, "Camo leggings speed change", ACM.playerIsWearingItem(player, ACMItem.camoLegs) ? 0.07d : 0d, 0);
-		AttributeModifier scubaFinsModifier = new AttributeModifier(movementSpeedUID, "Scuba fins speed change", ACM.playerIsWearingItem(player, ACMItem.scubaFins) && ACM.playerIsSwimming(player) ? 0.07d : 0d, 0);
+//		AttributeModifier scubaFinsModifier = new AttributeModifier(movementSpeedUID, "Scuba fins speed change", ACM.playerIsWearingItem(player, ACMItem.scubaFins) && ACM.playerIsSwimming(player) ? 0.07d : 0d, 0);
 		
         //Add modifier to Multimap list
 		Multimap modifiersToAdd = ArrayListMultimap.create();
         modifiersToAdd.put("generic.movementSpeed", camoPantsModifier);
-        modifiersToAdd.put("generic.movementSpeed", scubaFinsModifier);
+//        modifiersToAdd.put("generic.movementSpeed", scubaFinsModifier);
         attributes.applyAttributeModifiers(modifiersToAdd);
         ExtendedPlayer props = ExtendedPlayer.get(player);
         
@@ -188,7 +191,34 @@ public class ACMTickHandler implements ITickHandler{
 
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-		
+
+		if ((type.equals(EnumSet.of(TickType.CLIENT))) && (!type.equals(EnumSet.of(TickType.RENDER))))
+		{
+			GuiScreen guiscreen = Minecraft.getMinecraft().currentScreen;
+			if (guiscreen == null)
+			{
+				onClientTickInGame(tickData);
+			}
+		}
+	}
+
+	private void onClientTickInGame(Object[] tickData)
+	{
+		EntityPlayer player = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(Minecraft.getMinecraft().thePlayer.username);
+		int[] armorInventory = new int[4];
+
+		if (player == null) {
+			return;
+		}
+		for (int i = 0; i < armorInventory.length; i++)
+		{
+			ItemStack item = player.inventory.armorItemInSlot(i);
+			if (item == null)
+				continue;
+			if (!(item.getItem() instanceof ItemFins))
+				continue;
+			((ItemFins)item.getItem()).action(player);
+		}
 	}
 
 	@Override

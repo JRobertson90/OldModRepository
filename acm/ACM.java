@@ -214,9 +214,4 @@ public class ACM {
 		return false;
 	}
 
-	public static boolean playerIsSwimming(EntityPlayer player) {
-		
-		ChunkCoordinates coord = player.getPlayerCoordinates();
-		return player.worldObj.getBlockMaterial(coord.posX, coord.posY, coord.posZ) == Material.water;
-	}
 }

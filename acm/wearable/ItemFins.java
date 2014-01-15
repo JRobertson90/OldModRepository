@@ -2,12 +2,16 @@ package acm.wearable;
 
 import java.util.List;
 
-import acm.item.ACMItem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+
+import org.lwjgl.input.Keyboard;
+
+import acm.item.ACMItem;
 
 public class ItemFins extends ItemArmor {
 
@@ -27,6 +31,35 @@ public class ItemFins extends ItemArmor {
 		if(par1ItemStack.itemID == ACMItem.scubaFins.itemID)
 		{
 			par3List.add("Swim faster in water");
+		}
+	}
+
+	// Gets called from the tick handler
+	public void action(EntityPlayer player) {
+
+		if (Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindForward.keyCode))
+		{
+			float MAG = 0.325F;
+			double angle = Minecraft.getMinecraft().thePlayer.getRotationYawHead();
+			while (angle >= 0.0D) {
+				angle -= 360.0D;
+			}
+			while (angle <= 0.0D) {
+				angle += 360.0D;
+			}
+			angle += 90.0D;
+			angle = Math.toRadians(angle);
+
+			if (Minecraft.getMinecraft().thePlayer.isInWater())
+			{
+				Minecraft.getMinecraft().thePlayer.motionX = (Math.cos(angle) * MAG);
+				Minecraft.getMinecraft().thePlayer.motionZ = (Math.sin(angle) * MAG);
+			}
+			else
+			{
+				Minecraft.getMinecraft().thePlayer.motionX = (Math.cos(angle) * 0.1000000014901161D);
+				Minecraft.getMinecraft().thePlayer.motionZ = (Math.sin(angle) * 0.1000000014901161D);
+			}
 		}
 	}
 	
