@@ -35,24 +35,8 @@ public class ACMTickHandler implements ITickHandler{
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		
 		EntityPlayer player = (EntityPlayer) tickData[0];
-		
-		//Get attribute information from player and get our modifier ready
-		BaseAttributeMap attributes = player.getAttributeMap();
-		
-		//Create our Attribute modifier, and select the value by which to increase the speed based on if they are wearing camo leggings or not.
-		AttributeModifier camoPantsModifier = new AttributeModifier(movementSpeedUID, "Camo leggings speed change", ACM.playerIsWearingItem(player, ACMItem.camoLegs) ? 0.07d : 0d, 0);
-		
-        //Add modifier to Multimap list
-		Multimap modifiersToAdd = ArrayListMultimap.create();
-        modifiersToAdd.put("generic.movementSpeed", camoPantsModifier);
-        attributes.applyAttributeModifiers(modifiersToAdd);
-        ExtendedPlayer props = ExtendedPlayer.get(player);
+		ExtendedPlayer props = ExtendedPlayer.get(player);
         
-        int netherArmorCount = 0;
-        netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherHelm) ? 1 : 0;
-        netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherPlate) ? 1 : 0;
-		netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherLegs) ? 1 : 0;
-		netherArmorCount += ACM.playerIsWearingItem(player, ACMItem.netherBoots) ? 1 : 0;
 		if(player.inventory.inventoryChanged)
 		{
 			props.onInventoryChanged();

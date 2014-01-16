@@ -26,7 +26,6 @@ import acm.block.ACMBlock;
 import acm.network.ACMPacketHandler;
 import acm.server.ServerProxy;
 import acm.tickhandler.ACMTickHandler;
-import acm.tickhandler.ACMTickHandler2;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -66,9 +65,6 @@ public class ACM {
 		
 		TickRegistry.registerTickHandler(new ACMTickHandler(), Side.SERVER);
 		TickRegistry.registerTickHandler(new ACMTickHandler(), Side.CLIENT);
-		
-//		TickRegistry.registerTickHandler(new ACMTickHandler2(), Side.SERVER);
-//		TickRegistry.registerTickHandler(new ACMTickHandler2(), Side.CLIENT);
 		
 		proxy.registerRenderers();
 		Item.egg.setMaxStackSize(64);
