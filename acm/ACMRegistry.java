@@ -26,6 +26,12 @@ public class ACMRegistry {
 		//-------------------
 		ItemBedColor.register();
 		
+		GameRegistry.registerItem(ACMItem.diamondSwordAlt, "diamond_sword_alt");
+		GameRegistry.registerItem(ACMItem.diamondSwordAlt2, "diamond_sword_alt_2");
+		GameRegistry.registerItem(ACMItem.diamondSwordAlt3, "zelda_sword");
+		GameRegistry.registerItem(ACMItem.diamondSwordAlt4, "energy_sword");
+		GameRegistry.registerItem(ACMItem.diamondSwordAlt5, "lich_king_sword");
+		
 		GameRegistry.registerItem(ACMItem.blueSword, "blue_sword");
 		GameRegistry.registerItem(ACMItem.bluePickaxe, "blue_pickaxe");
 		GameRegistry.registerItem(ACMItem.blueAxe, "blue_axe");
@@ -71,6 +77,12 @@ public class ACMRegistry {
 		GameRegistry.registerItem(ACMItem.netherHammer, "netheranium_hammer");
 		GameRegistry.registerItem(ACMItem.netheraniumIngot, "netheranium_ingot");
 		
+		LanguageRegistry.addName(ACMItem.diamondSwordAlt, "Diamond Sword");
+		LanguageRegistry.addName(ACMItem.diamondSwordAlt2, "Diamond Sword");
+		LanguageRegistry.addName(ACMItem.diamondSwordAlt3, "Diamond Sword");
+		LanguageRegistry.addName(ACMItem.diamondSwordAlt4, "Diamond Sword");
+		LanguageRegistry.addName(ACMItem.diamondSwordAlt5, "Diamond Sword");
+
 		LanguageRegistry.addName(ACMItem.blueSword, "Lapis Lazuli Sword");
 		LanguageRegistry.addName(ACMItem.bluePickaxe, "Lapis Lazuli Pickaxe");
 		LanguageRegistry.addName(ACMItem.blueAxe, "Lapis Lazuli Axe");

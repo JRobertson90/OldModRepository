@@ -69,6 +69,8 @@ public class ACM {
 		proxy.registerRenderers();
 		Item.egg.setMaxStackSize(64);
 		Item.snowball.setMaxStackSize(64);
+		Item.doorWood.setMaxStackSize(64);
+		Item.doorIron.setMaxStackSize(64);
 		final int woodOrGold = 0;
 		final int stone = 1;
 		final int iron = 2;

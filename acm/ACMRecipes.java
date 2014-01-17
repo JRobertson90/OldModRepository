@@ -19,7 +19,6 @@ import acm.item.ItemBedColor;
 import acm.melee.ItemDagger;
 import acm.melee.ItemShield;
 import acm.melee.ItemWarHammer;
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
@@ -29,7 +28,8 @@ public class ACMRecipes {
 		ItemBedColor.loadRecipes();
 		final ItemStack lapis = new ItemStack(Item.dyePowder,1,4);
 		GameRegistry.addRecipe(new ItemStack(Block.grass), new Object[] { "L", "D", 'L', new ItemStack(Block.tallGrass,1,1), 'D', Block.dirt });
-
+		GameRegistry.addShapelessRecipe(new ItemStack(Block.sand, 4), new Object[]{Block.sandStone});
+		
 		addSwordRecipe(lapis, ACMItem.blueSword);
 		addPickaxeRecipe(lapis, ACMItem.bluePickaxe);
 		addShovelRecipe(lapis, ACMItem.blueShovel);
@@ -40,6 +40,13 @@ public class ACMRecipes {
 		addDaggerRecipe(lapis, ACMItem.blueDagger);
 		addPoisonDaggerRecipe(lapis, ACMItem.bluePoisonDagger);
 		
+		GameRegistry.addShapelessRecipe(new ItemStack(ACMItem.diamondSwordAlt), new Object[]{Item.swordDiamond});
+		GameRegistry.addShapelessRecipe(new ItemStack(ACMItem.diamondSwordAlt2), new Object[]{ACMItem.diamondSwordAlt});
+		GameRegistry.addShapelessRecipe(new ItemStack(ACMItem.diamondSwordAlt3), new Object[]{ACMItem.diamondSwordAlt2});
+		GameRegistry.addShapelessRecipe(new ItemStack(ACMItem.diamondSwordAlt4), new Object[]{ACMItem.diamondSwordAlt3});
+		GameRegistry.addShapelessRecipe(new ItemStack(ACMItem.diamondSwordAlt5), new Object[]{ACMItem.diamondSwordAlt4});
+		GameRegistry.addShapelessRecipe(new ItemStack(Item.swordDiamond), new Object[]{ACMItem.diamondSwordAlt5});
+		
 		addSwordRecipe(Item.redstone, ACMItem.redSword);
 		addPickaxeRecipe(Item.redstone, ACMItem.redPickaxe);
 		addShovelRecipe(Item.redstone, ACMItem.redShovel);
@@ -47,8 +54,9 @@ public class ACMRecipes {
 		addHoeRecipe(Item.redstone, ACMItem.redHoe);
 		addWarhammerRecipe(Item.redstone, ACMItem.redHammer);
 		addShieldRecipe(Item.redstone, ACMItem.redShield);
-		addDaggerRecipe(Item.redstone, ACMItem.redDagger);
-		addPoisonDaggerRecipe(Item.redstone, ACMItem.redPoisonDagger);
+		// To avoid clashing with redstone torch, redstone daggers are crafted at an angle
+		GameRegistry.addRecipe(new ItemStack(ACMItem.redDagger), new Object[]{" R", "S ", 'R', Item.redstone, 'S', Item.stick});
+		addPoisonDaggerRecipe(ACMItem.redDagger, ACMItem.redPoisonDagger);
 		
 		GameRegistry.addRecipe(new ItemStack(ACMItem.scubaFins, 1), new Object[] { "# #", "# #", '#', lapis });
 		
@@ -210,9 +218,9 @@ public class ACMRecipes {
 		GameRegistry.addRecipe(new ItemStack(output, 1), "x", "s", 'x', material, 's', Item.stick);
 	}
 	
-	private static void addPoisonDaggerRecipe(Object material, Item output)
+	private static void addPoisonDaggerRecipe(Object input, Item output)
 	{
-		GameRegistry.addShapelessRecipe(new ItemStack(output, 1), new Object[] {material, Item.spiderEye});
+		GameRegistry.addShapelessRecipe(new ItemStack(output, 1), new Object[] {input, Item.spiderEye});
 	}
 	
 	static String[] shieldRecipe = {"xxx", "xxx", " x "};

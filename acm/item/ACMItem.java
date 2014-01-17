@@ -31,7 +31,7 @@ import acm.wearable.ItemCamo;
 import acm.wearable.ItemFins;
 import acm.wearable.ItemNetherArmor;
 
-//Next Available ID = 3240
+//Next Available ID = 3242
 
 public class ACMItem {
 
@@ -55,6 +55,11 @@ public class ACMItem {
 	public static ItemDagger bluePoisonDagger = (ItemDagger) new ItemDagger(3237, true, blueTool).setUnlocalizedName("bluePoisonousDagger").setTextureName("acm:lapis_lazuli_poisonous_dagger");
 	
 	public static Item scubaFins = new ItemFins(3227, scubaArmor, 0, 3).setUnlocalizedName("scubaFins").setCreativeTab(CreativeTabs.tabCombat).setTextureName("acm:scuba_fins");
+	public static Item diamondSwordAlt = new ItemSword(3240, EnumToolMaterial.EMERALD).setUnlocalizedName("diamondSwordAlt").setTextureName("acm:diamond_sword_alt");
+	public static Item diamondSwordAlt2 = new ItemSword(3241, EnumToolMaterial.EMERALD).setUnlocalizedName("diamondSwordAlt2").setTextureName("acm:diamond_sword_alt_2");
+	public static Item diamondSwordAlt3 = new ItemSword(3242, EnumToolMaterial.EMERALD).setUnlocalizedName("diamondSwordAlt3").setTextureName("acm:zelda_sword");
+	public static Item diamondSwordAlt4 = new ItemSword(3243, EnumToolMaterial.EMERALD).setUnlocalizedName("diamondSwordAlt4").setTextureName("acm:energy_sword");
+	public static Item diamondSwordAlt5 = new ItemSword(3244, EnumToolMaterial.EMERALD).setUnlocalizedName("diamondSwordAlt5").setTextureName("acm:lich_king_sword");
 	
 	public static ItemSword redSword = (ItemSword) (new ItemSword(3229, redTool)).setUnlocalizedName("redSword").setTextureName("acm:redstone_sword");
 	public static ItemPickaxe redPickaxe = (ItemPickaxe) (new ItemPickaxe(3230, redTool)).setUnlocalizedName("redPickaxe").setTextureName("acm:redstone_pickaxe");
