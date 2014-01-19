@@ -4,6 +4,7 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,14 +12,12 @@ import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import acm.ACM;
-import acm.ACMRecipes;
 import acm.item.ACMItem;
 import acm.melee.ItemShield;
-import acm.melee.ItemWarHammer;
 import acm.player.ExtendedPlayer;
+import acm.wearable.ItemFins;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -31,11 +30,14 @@ import cpw.mods.fml.relauncher.Side;
 
 public class ACMTickHandler implements ITickHandler{
 
+	private static final UUID movementSpeedUID = UUID.fromString("206a89dc-ae78-4c4d-b42c-3b31db3f5a7c");
 	
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
+		
 		EntityPlayer player = (EntityPlayer) tickData[0];
 		ExtendedPlayer props = ExtendedPlayer.get(player);
+        
 		if(player.inventory.inventoryChanged)
 		{
 			props.onInventoryChanged();
@@ -46,7 +48,7 @@ public class ACMTickHandler implements ITickHandler{
 			props.tickInitialize();
 		}
 		if(props.netherArmorCount>0)
-        {
+		{
         	double randomValue = Math.random();
         	if(randomValue <= (double) props.netherArmorCount * 0.125)
         	{
@@ -170,6 +172,33 @@ public class ACMTickHandler implements ITickHandler{
 	{
 		if(input != null)
 		{
+			if(input.itemID == ACMItem.woodShield.itemID)
+			{
+				return 1;
+			}
+			else if(input.itemID == ACMItem.goldShield.itemID)
+			{
+				return 2;
+			}
+			else if(input.itemID == ACMItem.stoneShield.itemID)
+			{
+				return 3;
+			}
+			else if(input.itemID == ACMItem.ironShield.itemID ||
+					input.itemID == ACMItem.blueShield.itemID ||
+					input.itemID == ACMItem.redShield.itemID)
+			{
+				return 4;
+			}
+			else if(input.itemID == ACMItem.diamondShield.itemID)
+			{
+				return 5;
+			}
+			else if(input.itemID == ACMItem.netherShield.itemID)
+			{
+				return 6;
+			}
+
 			if(input.getItem() instanceof ItemShield)
 			{
 				int maxUses = -1;
@@ -198,8 +227,24 @@ public class ACMTickHandler implements ITickHandler{
 	}
 
 	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
+	public void tickEnd(EnumSet<TickType> type, Object... tickData)
+	{
+	
 		EntityPlayer player = (EntityPlayer) tickData[0];
+		int[] armorInventory = new int[4];
+
+		if (player == null) {
+			return;
+		}
+		for (int i = 0; i < armorInventory.length; i++)
+		{
+			ItemStack item = player.inventory.armorItemInSlot(i);
+			if (item == null)
+				continue;
+			if (!(item.getItem() instanceof ItemFins))
+				continue;
+			((ItemFins)item.getItem()).action(player);
+		}
 		ExtendedPlayer props = ExtendedPlayer.get(player);
 		props.lastStack = player.inventory.getCurrentItem();
         props.lastHotbarSlot = player.inventory.currentItem;

@@ -38,12 +38,17 @@ public class ClientProxy extends ServerProxy {
 		MinecraftForgeClient.registerItemRenderer(ACMItem.woodHammer.itemID, new BigItemRenderer());
 		MinecraftForgeClient.registerItemRenderer(ACMItem.stoneHammer.itemID, new BigItemRenderer());
 		MinecraftForgeClient.registerItemRenderer(ACMItem.ironHammer.itemID, new BigItemRenderer());
+		MinecraftForgeClient.registerItemRenderer(ACMItem.blueHammer.itemID, new BigItemRenderer());
+		MinecraftForgeClient.registerItemRenderer(ACMItem.redHammer.itemID, new BigItemRenderer());
 		MinecraftForgeClient.registerItemRenderer(ACMItem.goldHammer.itemID, new BigItemRenderer());
 		MinecraftForgeClient.registerItemRenderer(ACMItem.diamondHammer.itemID, new BigItemRenderer());
 		MinecraftForgeClient.registerItemRenderer(ACMItem.netherHammer.itemID, new BigItemRenderer());
+
 		MinecraftForgeClient.registerItemRenderer(ACMItem.woodShield.itemID, new ShieldRenderer());
 		MinecraftForgeClient.registerItemRenderer(ACMItem.stoneShield.itemID, new ShieldRenderer());
 		MinecraftForgeClient.registerItemRenderer(ACMItem.ironShield.itemID, new ShieldRenderer());
+		MinecraftForgeClient.registerItemRenderer(ACMItem.blueShield.itemID, new ShieldRenderer());
+		MinecraftForgeClient.registerItemRenderer(ACMItem.redShield.itemID, new ShieldRenderer());
 		MinecraftForgeClient.registerItemRenderer(ACMItem.goldShield.itemID, new ShieldRenderer());
 		MinecraftForgeClient.registerItemRenderer(ACMItem.diamondShield.itemID, new ShieldRenderer());
 		MinecraftForgeClient.registerItemRenderer(ACMItem.netherShield.itemID, new ShieldRenderer());
@@ -51,9 +56,6 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(ArrowExplosive.class, new RenderExplosiveArrow());
 		RenderingRegistry.registerEntityRenderingHandler(ArrowFar.class, new RenderArrow());
 		
-		MinecraftForgeClient.registerItemRenderer(ACMItem.blueHammer.itemID, new BigItemRenderer());
-		MinecraftForgeClient.registerItemRenderer(ACMItem.blueShield.itemID, new ShieldRenderer());
-
 		RenderingRegistry.registerEntityRenderingHandler(EntityArrowPort.class, new RenderArrowPort());
 		RenderingRegistry.registerEntityRenderingHandler(EntityArrowTorch.class, new RenderArrowTorch());
 		

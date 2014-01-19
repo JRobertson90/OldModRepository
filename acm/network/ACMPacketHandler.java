@@ -14,10 +14,10 @@ public class ACMPacketHandler implements IPacketHandler{
 
 	@Override
 	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
+		
 		if(packet.channel.equals(ACM.packetChannel))
 		{
 			String packetMessage = ACM.readStringPacket(packet);
-			//Server side
 			if(FMLCommonHandler.instance().getEffectiveSide().equals(Side.SERVER))
 			{
 				if(packetMessage.startsWith("jump:"))
@@ -25,14 +25,6 @@ public class ACMPacketHandler implements IPacketHandler{
 					ACMPacketInfluence.superJump(ACM.getPlayerFromUsername(packetMessage.split(":")[1]));
 				}
 			}
-//			//Client side
-//			else
-//			{
-//				if(packetMessage.equals("flashStamina"))
-//				{
-//					ACM.proxy.flashStamina();
-//				}
-//			}
 		}
 	}
 

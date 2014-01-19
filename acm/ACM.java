@@ -11,9 +11,7 @@ import java.util.Iterator;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -25,7 +23,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import acm.block.ACMBlock;
-import acm.item.ACMItem;
 import acm.network.ACMPacketHandler;
 import acm.server.ServerProxy;
 import acm.tickhandler.ACMTickHandler;
@@ -65,11 +62,15 @@ public class ACM {
 	{
 		ACMRegistry.load();
 		ACMRecipes.load();
+		
 		TickRegistry.registerTickHandler(new ACMTickHandler(), Side.SERVER);
 		TickRegistry.registerTickHandler(new ACMTickHandler(), Side.CLIENT);
+		
 		proxy.registerRenderers();
 		Item.egg.setMaxStackSize(64);
 		Item.snowball.setMaxStackSize(64);
+		Item.doorWood.setMaxStackSize(64);
+		Item.doorIron.setMaxStackSize(64);
 		final int woodOrGold = 0;
 		final int stone = 1;
 		final int iron = 2;
@@ -210,4 +211,5 @@ public class ACM {
 		}
 		return false;
 	}
+
 }
