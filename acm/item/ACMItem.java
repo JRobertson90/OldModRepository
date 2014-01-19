@@ -23,6 +23,7 @@ import acm.ranged.BowPort;
 import acm.ranged.BowTorch;
 import acm.ranged.ItemExplosiveBow;
 import acm.ranged.ItemGunpowderBow;
+import acm.ranged.ItemSuperBow;
 import acm.tool.ItemNetherAxe;
 import acm.tool.ItemNetherHoe;
 import acm.tool.ItemNetherPickaxe;
@@ -69,7 +70,9 @@ public class ACMItem {
 	public static ItemDagger netherDagger = new ItemNetherDagger(3225, false);
 	public static ItemDagger netherPoisonDagger = new ItemNetherDagger(3226, true);
 	
-	//Next Available ID = 3227
+	public static ItemSuperBow superBow = (ItemSuperBow) new ItemSuperBow(Item.bow.itemID-256).setUnlocalizedName("bow").setTextureName("bow").setFull3D();
+		
+	//Next Available ID = 3229
 
 	public static Item chainCluster = new Item(5000).setCreativeTab(CreativeTabs.tabMaterials).setUnlocalizedName("chainCluster").setTextureName("acm:chaincluster");
 	public static ItemWarHammer woodHammer = new ItemWarHammer(5001, EnumToolMaterial.WOOD);

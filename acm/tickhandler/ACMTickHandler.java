@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.Potion;
@@ -57,8 +58,11 @@ public class ACMTickHandler implements ITickHandler{
         		player.extinguish();
         	}
         }
+		
         if(player.inventory.getCurrentItem() != null)
         {
+        	
+        	//Wooden shield burning code
         	if(player.isBurning() && player.inventory.getCurrentItem().itemID == ACMItem.woodShield.itemID && !(player.capabilities.isCreativeMode))
             {
             	player.inventory.mainInventory[player.inventory.currentItem] = null;
@@ -67,6 +71,57 @@ public class ACMTickHandler implements ITickHandler{
             		player.addChatMessage("Your wooden shield burnt up!");
             	}
             }
+        }
+        //If player is holding nothing
+        else
+        {
+        	//Code to automatically switch block stacks
+        	if(props.lastStack != null && props.lastStack.getItem() instanceof ItemBlock && player.inventory.currentItem == props.lastHotbarSlot)
+        	{
+        		boolean leftFlag = false;
+    			boolean rightFlag = false;
+    			for(int i = 1;!leftFlag && !rightFlag && i < 9; i++)
+    			{
+    				ItemStack left = null;
+        			ItemStack right = null;
+        			if(player.inventory.currentItem+i < 9)
+        			{
+        				left = player.inventory.getStackInSlot(player.inventory.currentItem+i);
+        			}
+        			if(player.inventory.currentItem-i >= 0)
+        			{
+        				right = player.inventory.getStackInSlot(player.inventory.currentItem-i);
+        			}
+        			try
+        			{
+        				leftFlag = left.itemID == props.lastStack.itemID && left.getItemDamage() == props.lastStack.getItemDamage();
+        			}
+        			catch(NullPointerException e)
+        			{
+        				;
+        			}
+        			try
+        			{
+        				rightFlag = right.itemID == props.lastStack.itemID && right.getItemDamage() == props.lastStack.getItemDamage();
+        			}
+        			catch(NullPointerException e)
+        			{
+        				;
+        			}
+        	        if(leftFlag || rightFlag)
+        	        {
+        	        	if(leftFlag)
+        	        	{
+        	        		player.inventory.currentItem = player.inventory.currentItem+i;
+        	        	}
+        	        	else
+        	        	{
+        	        		player.inventory.currentItem = player.inventory.currentItem-i;
+        	        	}
+        	        	Minecraft.getMinecraft().playerController.sendUseItem(player, player.worldObj, player.inventory.getStackInSlot(player.inventory.currentItem));
+        	        }
+    			}
+        	}
         }
         if(FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT) && player.isUsingItem())
         {
@@ -144,7 +199,10 @@ public class ACMTickHandler implements ITickHandler{
 
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-		
+		EntityPlayer player = (EntityPlayer) tickData[0];
+		ExtendedPlayer props = ExtendedPlayer.get(player);
+		props.lastStack = player.inventory.getCurrentItem();
+        props.lastHotbarSlot = player.inventory.currentItem;
 	}
 
 	@Override

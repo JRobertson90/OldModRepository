@@ -1,5 +1,8 @@
 package acm.player;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -9,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
@@ -25,6 +29,9 @@ private final EntityPlayer player;
 public int weaponToReturnTo = 9;
 public int netherArmorCount = 0;
 public boolean wasInitialized = false;
+public List<ItemStack> arrowsInQuiver = new ArrayList<ItemStack>(6);
+public ItemStack lastStack = null;
+public int lastHotbarSlot = 9;
 
 	public ExtendedPlayer(EntityPlayer player)
 	{
@@ -56,9 +63,13 @@ public boolean wasInitialized = false;
 	{
 		// We need to create a new tag compound that will save everything for our Extended Properties
 		NBTTagCompound properties = new NBTTagCompound();
-		
-//		properties.setInteger(nbtName, this.player.getDataWatcher().getWatchableObjectInt(stamina_watcher));
-//		properties.setInteger(nbtCooldownName, this.player.getDataWatcher().getWatchableObjectInt(stamina_cooldown_watcher));
+		for(Iterator<ItemStack> i = this.arrowsInQuiver.iterator(); i.hasNext(); )
+		{
+		    ItemStack item = i.next();
+		    properties.setInteger("arrowId"+i, item.itemID);
+		    properties.setInteger("arrowSize"+i, item.stackSize);
+		    properties.setInteger("arrowDamage"+i, item.getItemDamage());
+		}
 		/*
 		Now add our custom tag to the player's tag with a unique name (our property's name). This will allow you to save multiple types of properties and distinguish between them. If you only have one type, it isn't as important, but it will still avoid conflicts between your tag names and vanilla tag names. For instance, if you add some "Items" tag, that will conflict with vanilla. Not good. So just use a unique tag name.
 		*/
@@ -72,6 +83,13 @@ public boolean wasInitialized = false;
 		// Here we fetch the unique tag compound we set for this class of Extended Properties
 		NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_PROP_NAME);
 		// Get our data from the custom tag compound
+		for(Iterator<ItemStack> i = this.arrowsInQuiver.iterator(); i.hasNext(); )
+		{
+		    ItemStack item = i.next();
+		    item.itemID = properties.getInteger("arrowId"+i);
+		    item.stackSize = properties.getInteger("arrowSize"+i);
+		    item.setItemDamage(properties.getInteger("arrowDamage"+i));
+		}
 	}
 
 	@Override
