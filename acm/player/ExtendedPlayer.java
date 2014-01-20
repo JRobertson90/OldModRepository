@@ -19,6 +19,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import acm.ACM;
 import acm.item.ACMItem;
 import acm.network.ACMPacketInfluence;
+import acm.wearable.ItemCamo;
 
 public class ExtendedPlayer implements IExtendedEntityProperties
 {
@@ -114,7 +115,7 @@ public int lastHotbarSlot = 9;
 		BaseAttributeMap attributes = player.getAttributeMap();
 		AttributeModifier modifier;
 		//Create our Attribute modifier, and select the value by which to increase the speed based on if they are wearing camo leggings or not.
-        modifier = new AttributeModifier(movementSpeedUID, "Camo leggings speed change", ACM.playerIsWearingItem(player, ACMItem.camoLegs) ? 0.07d : 0.05d, 0);
+        modifier = new AttributeModifier(movementSpeedUID, "Camo leggings speed change", ACM.playerIsWearingItem(player, ACMItem.camoLegs) ? ItemCamo.leggingsSpeedIncrease : 0.05d, 0);
         //Add modifier to Multimap list
 		Multimap modifiersToAdd = ArrayListMultimap.create();
         modifiersToAdd.put("generic.movementSpeed", modifier);
