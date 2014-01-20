@@ -74,11 +74,4 @@ public class ClientProxy extends ServerProxy {
     	MinecraftForge.EVENT_BUS.register(new GuiDrawing());
     	MinecraftForge.EVENT_BUS.register(new ServerAndClientEventHandler());
     }
-	
-//	@Override
-//	public void flashStamina()
-//	{
-//		Minecraft mc = Minecraft.getMinecraft();
-//		ACMPacketInfluence.manuallyFlashStamina((EntityPlayer) mc.thePlayer);
-//	}
 }

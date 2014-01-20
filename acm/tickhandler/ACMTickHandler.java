@@ -172,33 +172,6 @@ public class ACMTickHandler implements ITickHandler{
 	{
 		if(input != null)
 		{
-			if(input.itemID == ACMItem.woodShield.itemID)
-			{
-				return 1;
-			}
-			else if(input.itemID == ACMItem.goldShield.itemID)
-			{
-				return 2;
-			}
-			else if(input.itemID == ACMItem.stoneShield.itemID)
-			{
-				return 3;
-			}
-			else if(input.itemID == ACMItem.ironShield.itemID ||
-					input.itemID == ACMItem.blueShield.itemID ||
-					input.itemID == ACMItem.redShield.itemID)
-			{
-				return 4;
-			}
-			else if(input.itemID == ACMItem.diamondShield.itemID)
-			{
-				return 5;
-			}
-			else if(input.itemID == ACMItem.netherShield.itemID)
-			{
-				return 6;
-			}
-
 			if(input.getItem() instanceof ItemShield)
 			{
 				int maxUses = -1;

@@ -42,26 +42,20 @@ public class ItemFins extends ItemArmor {
 		}
 		if (Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindForward.keyCode))
 		{
-			float MAG = 0.325F;
-			double angle = player.getRotationYawHead();
-			while (angle >= 0.0D) {
-				angle -= 360.0D;
-			}
-			while (angle <= 0.0D) {
-				angle += 360.0D;
-			}
-			angle += 90.0D;
-			angle = Math.toRadians(angle);
-
 			if (player.isInWater())
 			{
-				player.motionX = (Math.cos(angle) * MAG);
-				player.motionZ = (Math.sin(angle) * MAG);
-			}
-			else
-			{
-				player.motionX = (Math.cos(angle) * 0.1000000014901161D);
-				player.motionZ = (Math.sin(angle) * 0.1000000014901161D);
+				float MAG = 0.055F;
+				double angle = player.getRotationYawHead();
+				while (angle >= 0.0D) {
+					angle -= 360.0D;
+				}
+				while (angle <= 0.0D) {
+					angle += 360.0D;
+				}
+				angle += 90.0D;
+				angle = Math.toRadians(angle);
+				player.motionX += (Math.cos(angle) * MAG);
+				player.motionZ += (Math.sin(angle) * MAG);
 			}
 		}
 	}

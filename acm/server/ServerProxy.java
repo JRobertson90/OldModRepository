@@ -16,9 +16,4 @@ public class ServerProxy {
     	MinecraftForge.EVENT_BUS.register(new ServerAndClientEventHandler());
     	MinecraftForge.EVENT_BUS.register(new ServerEventHandler());
     }
-    
-    public void flashStamina()
-    {
-    	//Does nothing
-    }
 }
