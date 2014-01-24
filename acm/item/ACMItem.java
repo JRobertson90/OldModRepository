@@ -23,7 +23,7 @@ import acm.ranged.BowPort;
 import acm.ranged.BowTorch;
 import acm.ranged.ItemExplosiveBow;
 import acm.ranged.ItemGunpowderBow;
-import acm.ranged.ItemSuperBow;
+//import acm.ranged.ItemSuperBow;
 import acm.tool.ItemNetherAxe;
 import acm.tool.ItemNetherHoe;
 import acm.tool.ItemNetherPickaxe;
@@ -32,7 +32,7 @@ import acm.wearable.ItemCamo;
 import acm.wearable.ItemFins;
 import acm.wearable.ItemNetherArmor;
 
-//Next Available ID = 3242
+//Next Available ID = 3245
 
 public class ACMItem {
 
@@ -94,10 +94,8 @@ public class ACMItem {
 	public static ItemDagger netherDagger = new ItemNetherDagger(3225, false);
 	public static ItemDagger netherPoisonDagger = new ItemNetherDagger(3226, true);
 	
-	public static ItemSuperBow superBow = (ItemSuperBow) new ItemSuperBow(Item.bow.itemID-256).setUnlocalizedName("bow").setTextureName("bow").setFull3D();
+//	public static ItemSuperBow superBow = (ItemSuperBow) new ItemSuperBow(Item.bow.itemID-256).setUnlocalizedName("bow").setTextureName("bow").setFull3D();
 		
-	//Next Available ID = 3229
-
 	public static Item chainCluster = new Item(5000).setCreativeTab(CreativeTabs.tabMaterials).setUnlocalizedName("chainCluster").setTextureName("acm:chaincluster");
 	public static ItemWarHammer woodHammer = new ItemWarHammer(5001, EnumToolMaterial.WOOD);
 	public static ItemWarHammer stoneHammer = new ItemWarHammer(5002, EnumToolMaterial.STONE);
