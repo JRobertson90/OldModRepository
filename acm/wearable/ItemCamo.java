@@ -16,6 +16,8 @@ import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import acm.ACM;
 import acm.item.ACMItem;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemCamo extends ItemArmor {
 	
@@ -50,6 +52,7 @@ public class ItemCamo extends ItemArmor {
 		player.motionZ *= horizontalMultiplier;
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static void silenceTunneling(PlaySoundEvent event)
 	{
 		//Test for the wide variety of sounds made while tunneling and building
