@@ -1,5 +1,6 @@
 /*
-/*/
-!.gitignore
 !/acm/
+!/assets
+/assets/*
 !/assets/acm/
+!/.gitignore
