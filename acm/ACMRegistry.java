@@ -1,10 +1,7 @@
 package acm;
 
-import net.minecraft.item.Item;
 import acm.block.ACMBlock;
-import acm.christmasChest.GuiHandlerChristmasChest;
 import acm.christmasChest.TileEntityChristmasChest;
-import acm.craftingChest.GuiHandlerCraftingChest;
 import acm.craftingChest.TileEntityCraftingChest;
 import acm.entity.ArrowExplosive;
 import acm.entity.ArrowFar;
@@ -64,8 +61,7 @@ public class ACMRegistry {
 //		GameRegistry.registerItem(ACMItem.superBow, "bow_super");
 		GameRegistry.registerBlock(ACMBlock.craftingChest, "crafting_chest");
 		
-		NetworkRegistry.instance().registerGuiHandler(ACM.instance, new GuiHandlerCraftingChest());
-		NetworkRegistry.instance().registerGuiHandler(ACM.instance, new GuiHandlerChristmasChest());
+		NetworkRegistry.instance().registerGuiHandler(ACM.instance, new ACMGuiHandler());
 		
 		GameRegistry.registerItem(ACMItem.netherHelm, "netheranium_helmet");
 		GameRegistry.registerItem(ACMItem.netherPlate, "netheranium_chestplate");

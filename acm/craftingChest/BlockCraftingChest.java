@@ -214,7 +214,7 @@ public class BlockCraftingChest extends BlockContainer {
     	if (tileEntity == null || par5EntityPlayer.isSneaking()) {
     		return false;
     	}
-    	par5EntityPlayer.openGui(ACM.instance, 0, par1World, par2, par3, par4);
+    	par5EntityPlayer.openGui(ACM.instance, 1, par1World, par2, par3, par4);
     	return true;
     }
 

@@ -57,7 +57,7 @@ public class BlockChristmasChest extends BlockChest {
 
             if (iinventory != null)
             {
-                par5EntityPlayer.openGui(ACM.instance, 1, par1World, par2, par3, par4);
+                par5EntityPlayer.openGui(ACM.instance, 0, par1World, par2, par3, par4);
             }
 
             return true;
