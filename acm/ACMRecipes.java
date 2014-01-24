@@ -54,6 +54,7 @@ public class ACMRecipes {
 		addHoeRecipe(Item.redstone, ACMItem.redHoe);
 		addWarhammerRecipe(Item.redstone, ACMItem.redHammer);
 		addShieldRecipe(Item.redstone, ACMItem.redShield);
+		
 		// To avoid clashing with redstone torch, redstone daggers are crafted at an angle
 		GameRegistry.addRecipe(new ItemStack(ACMItem.redDagger), new Object[]{" R", "S ", 'R', Item.redstone, 'S', Item.stick});
 		addPoisonDaggerRecipe(ACMItem.redDagger, ACMItem.redPoisonDagger);

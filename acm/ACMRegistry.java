@@ -2,6 +2,7 @@ package acm;
 
 import net.minecraft.item.Item;
 import acm.block.ACMBlock;
+import acm.christmasChest.GuiHandlerChristmasChest;
 import acm.christmasChest.TileEntityChristmasChest;
 import acm.craftingChest.GuiHandlerCraftingChest;
 import acm.craftingChest.TileEntityCraftingChest;
@@ -62,7 +63,9 @@ public class ACMRegistry {
 		GameRegistry.registerItem(ACMItem.bowTorch, "bow_torch");
 		GameRegistry.registerItem(ACMItem.superBow, "bow_super");
 		GameRegistry.registerBlock(ACMBlock.craftingChest, "crafting_chest");
+		
 		NetworkRegistry.instance().registerGuiHandler(ACM.instance, new GuiHandlerCraftingChest());
+		NetworkRegistry.instance().registerGuiHandler(ACM.instance, new GuiHandlerChristmasChest());
 		
 		GameRegistry.registerItem(ACMItem.netherHelm, "netheranium_helmet");
 		GameRegistry.registerItem(ACMItem.netherPlate, "netheranium_chestplate");
