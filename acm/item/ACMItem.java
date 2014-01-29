@@ -7,6 +7,7 @@ import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
@@ -31,16 +32,20 @@ import acm.tool.ItemNetherSpade;
 import acm.wearable.ItemCamo;
 import acm.wearable.ItemFins;
 import acm.wearable.ItemNetherArmor;
+import acm.wearable.ItemStoneArmor;
 
-//Next Available ID = 3245
+//Next Available ID = 3251
 
 public class ACMItem {
+
+	public static final Item glassDoor = new ItemGlassDoor(3249).setCreativeTab(CreativeTabs.tabRedstone).setTextureName("acm:glass_door");
 
 	public static Item netheraniumIngot = new Item(3223).setCreativeTab(CreativeTabs.tabMaterials).setUnlocalizedName("nether_ingot").setTextureName("acm:netheranium_ingot");
 	
 	public static EnumToolMaterial blueTool = EnumHelper.addToolMaterial("BLUE",2, 670, 6.0F, 2.0F, 14);
 	public static EnumToolMaterial redTool = EnumHelper.addToolMaterial("RED",2, 670, 6.0F, 2.0F, 14);
 	public static EnumArmorMaterial scubaArmor = EnumHelper.addArmorMaterial("SCUBA", 10, new int[]{2,2,2,2},10);
+	public static EnumArmorMaterial stoneArmor = addArmorMaterialWithBlock("STONE", 10, new int[]{1,3,3,2}, 7, Block.cobblestone);
 	public static EnumArmorMaterial CAMO = addArmorMaterialWithBlock("CAMO", 5, new int[]{0, 0, 0, 0}, 9, Block.cloth);
 	public static EnumToolMaterial netherTool = addToolMaterialWithItem("NETHER",3, 1561, 8.0F, 3.0F, 10, netheraniumIngot);
 	public static EnumArmorMaterial netherArmor = addArmorMaterialWithItem("NETHER", 33, new int[]{3, 8, 6, 3}, 10, netheraniumIngot);
@@ -93,6 +98,11 @@ public class ACMItem {
 	public static ItemWarHammer netherHammer = new ItemNetherWarHammer(3224);
 	public static ItemDagger netherDagger = new ItemNetherDagger(3225, false);
 	public static ItemDagger netherPoisonDagger = new ItemNetherDagger(3226, true);
+	
+	public static ItemArmor stoneHelm = (ItemArmor) new ItemStoneArmor(3245, stoneArmor, 0, 0).setUnlocalizedName("stone_helm").setCreativeTab(CreativeTabs.tabCombat).setTextureName("acm:stone_helmet");
+	public static ItemArmor stonePlate = (ItemArmor) new ItemStoneArmor(3246, stoneArmor, 0, 1).setUnlocalizedName("stone_plate").setCreativeTab(CreativeTabs.tabCombat).setTextureName("acm:stone_chestplate");
+	public static ItemArmor stoneLegs = (ItemArmor) new ItemStoneArmor(3247, stoneArmor, 0, 2).setUnlocalizedName("stone_legs").setCreativeTab(CreativeTabs.tabCombat).setTextureName("acm:stone_leggings");
+	public static ItemArmor stoneBoots = (ItemArmor) new ItemStoneArmor(3248, stoneArmor, 0, 3).setUnlocalizedName("stone_boots").setCreativeTab(CreativeTabs.tabCombat).setTextureName("acm:stone_boots");
 	
 //	public static ItemSuperBow superBow = (ItemSuperBow) new ItemSuperBow(Item.bow.itemID-256).setUnlocalizedName("bow").setTextureName("bow").setFull3D();
 		
