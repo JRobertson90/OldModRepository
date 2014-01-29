@@ -1,8 +1,6 @@
 package acm.client;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderArrow;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import acm.block.ACMBlock;
@@ -23,7 +21,6 @@ import acm.entity.ArrowFar;
 import acm.entity.EntityArrowPort;
 import acm.entity.EntityArrowTorch;
 import acm.item.ACMItem;
-import acm.network.ACMPacketInfluence;
 import acm.server.ServerAndClientEventHandler;
 import acm.server.ServerProxy;
 import cpw.mods.fml.client.registry.ClientRegistry;

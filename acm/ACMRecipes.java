@@ -25,6 +25,9 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class ACMRecipes {
 	public static void load() {
 		
+		GameRegistry.addRecipe(new ItemStack(ACMBlock.lightBlock, 4), new Object[] { "###", "#Q#", "###", '#', Item.glowstone, 'Q', Block.blockNetherQuartz });
+		GameRegistry.addRecipe(new ItemStack(ACMItem.glassDoor), new Object[]{"##","##","##",'#',Block.glass});
+		
 		ItemBedColor.loadRecipes();
 		final ItemStack lapis = new ItemStack(Item.dyePowder,1,4);
 		GameRegistry.addRecipe(new ItemStack(Block.grass), new Object[] { "L", "D", 'L', new ItemStack(Block.tallGrass,1,1), 'D', Block.dirt });

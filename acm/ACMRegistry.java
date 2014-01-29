@@ -25,6 +25,14 @@ public class ACMRegistry {
 		//-------------------
 		ItemBedColor.register();
 		
+		GameRegistry.registerBlock(ACMBlock.lightBlock, "light_block");
+		LanguageRegistry.addName(ACMBlock.lightBlock, "Light Block");
+		
+		GameRegistry.registerBlock(ACMBlock.floodlightBeam, "light_block_beam");
+		LanguageRegistry.addName(ACMBlock.floodlightBeam, "Light Block Beam");
+		
+		GameRegistry.registerItem(ACMItem.glassDoor, "glassDoor");
+		
 		GameRegistry.registerItem(ACMItem.diamondSwordAlt, "diamond_sword_alt");
 		GameRegistry.registerItem(ACMItem.diamondSwordAlt2, "diamond_sword_alt_2");
 		GameRegistry.registerItem(ACMItem.diamondSwordAlt3, "zelda_sword");
@@ -77,6 +85,8 @@ public class ACMRegistry {
 		GameRegistry.registerItem(ACMItem.netherPoisonDagger, "netheranium_poison_dagger");
 		GameRegistry.registerItem(ACMItem.netherHammer, "netheranium_hammer");
 		GameRegistry.registerItem(ACMItem.netheraniumIngot, "netheranium_ingot");
+		
+		LanguageRegistry.addName(ACMItem.glassDoor, "Glass Door");
 		
 		LanguageRegistry.addName(ACMItem.diamondSwordAlt, "Diamond Sword");
 		LanguageRegistry.addName(ACMItem.diamondSwordAlt2, "Diamond Sword");
