@@ -11,12 +11,12 @@ import net.minecraft.world.*;
 import net.minecraft.util.*;
 import net.minecraftforge.common.*;
 
-public class BlockLight<TE extends TileEntity> extends BaseContainerBlock<TE> {
+public class BlockLight extends Block {
 
 	Icon icon;
 	
 	public BlockLight(int id) {
-		super(id, Material.cloth, null);
+		super(id, Material.cloth);
 	}
 	
 	@Override
@@ -50,7 +50,7 @@ public class BlockLight<TE extends TileEntity> extends BaseContainerBlock<TE> {
 
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID) {
-		Floodlight.checkIfShouldStay(world, x, y, z);
+		//Floodlight.checkIfShouldStay(world, x, y, z);
 	}
 	
 }
