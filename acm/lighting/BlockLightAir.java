@@ -16,12 +16,10 @@ import net.minecraft.tileentity.*;
 import net.minecraft.world.*;
 import net.minecraft.util.*;
 
-public class BlockLightAir extends BaseContainerBlock<TEBlockLightAir> {
-
-	Icon icon;
+public class BlockLightAir extends Block {
 
 	public BlockLightAir(int id) {
-		super(id, Material.vine, TEBlockLightAir.class);
+		super(id, Material.vine);
 		setLightValue(1.0F);
 		setLightOpacity(0);
 		setHardness(-1);
@@ -32,16 +30,6 @@ public class BlockLightAir extends BaseContainerBlock<TEBlockLightAir> {
 			setBlockBounds(0F, 0F, 0F, 0F, 0F, 0F);
 	}
 	
-	@Override
-	public void registerIcons(IconRegister reg) {
-		icon = reg.registerIcon("acm:debug_light");
-	}
-	
-	@Override
-	public TileEntity createNewTileEntity(World world) {
-		return new TEBlockLightAir();
-	}
-
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
@@ -66,7 +54,7 @@ public class BlockLightAir extends BaseContainerBlock<TEBlockLightAir> {
 
 	@Override
 	public boolean renderAsNormalBlock() {
-		return Floodlight.debugBeamBlocks;
+		return false;
 	}
 	
 	@Override
@@ -81,10 +69,7 @@ public class BlockLightAir extends BaseContainerBlock<TEBlockLightAir> {
 
 	@Override
 	public int getRenderType() {
-		if (Floodlight.debugBeamBlocks)
-			return super.getRenderType();
-		else
-			return -1;
+		return -1;
 	}
 
 	@Override
@@ -94,8 +79,7 @@ public class BlockLightAir extends BaseContainerBlock<TEBlockLightAir> {
 	
 	@Override
 	public Icon getBlockTexture(IBlockAccess world, int x, int y, int z, int side) {
-		TEBlockLightAir te = (TEBlockLightAir)world.getBlockTileEntity(x, y, z);
-		return icon;
+		return null;
 	}
 
 }
