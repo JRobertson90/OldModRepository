@@ -1,6 +1,7 @@
 package acm;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStairs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
@@ -14,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import acm.block.ACMBlock;
+import acm.block.BlockStairsWool;
 import acm.item.ACMItem;
 import acm.item.ItemBedColor;
 import acm.melee.ItemDagger;
@@ -25,10 +27,25 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class ACMRecipes {
 	public static void load() {
 		
+		addStairsRecipe(Block.glass,ACMBlock.glassStairs);
+		addStairsRecipe(Block.dirt,ACMBlock.dirtStairs);
+		
+		GameRegistry.addRecipe(new ItemStack(ACMBlock.woodOakStairs, 8), new Object[]{"  #"," ##","###",'#', new ItemStack(Block.wood,1,0)});
+		GameRegistry.addRecipe(new ItemStack(ACMBlock.woodSpruceStairs, 8), new Object[]{"  #"," ##","###",'#', new ItemStack(Block.wood,1,1)});
+		GameRegistry.addRecipe(new ItemStack(ACMBlock.woodBirchStairs, 8), new Object[]{"  #"," ##","###",'#', new ItemStack(Block.wood,1,2)});
+		GameRegistry.addRecipe(new ItemStack(ACMBlock.woodJungleStairs, 8), new Object[]{"  #"," ##","###",'#', new ItemStack(Block.wood,1,3)});
+		
+		GameRegistry.addRecipe(new ItemStack(ACMBlock.leavesOakStairs, 4), new Object[]{"  #"," ##","###",'#', new ItemStack(Block.leaves,1,0)});
+		GameRegistry.addRecipe(new ItemStack(ACMBlock.leavesSpruceStairs, 4), new Object[]{"  #"," ##","###",'#', new ItemStack(Block.leaves,1,1)});
+		GameRegistry.addRecipe(new ItemStack(ACMBlock.leavesBirchStairs, 4), new Object[]{"  #"," ##","###",'#', new ItemStack(Block.leaves,1,2)});
+		GameRegistry.addRecipe(new ItemStack(ACMBlock.leavesJungleStairs, 4), new Object[]{"  #"," ##","###",'#', new ItemStack(Block.leaves,1,3)});
+		
+		GameRegistry.addShapelessRecipe(new ItemStack(Item.silk,4), new Object[]{new ItemStack(Block.cloth,15)});
 		GameRegistry.addRecipe(new ItemStack(ACMBlock.lightBlock, 4), new Object[] { "###", "#Q#", "###", '#', Item.glowstone, 'Q', Block.blockNetherQuartz });
 		GameRegistry.addRecipe(new ItemStack(ACMItem.glassDoor), new Object[]{"##","##","##",'#',Block.glass});
 		
 		ItemBedColor.loadRecipes();
+		BlockStairsWool.loadRecipes();
 		final ItemStack lapis = new ItemStack(Item.dyePowder,1,4);
 		GameRegistry.addRecipe(new ItemStack(Block.grass), new Object[] { "L", "D", 'L', new ItemStack(Block.tallGrass,1,1), 'D', Block.dirt });
 		GameRegistry.addShapelessRecipe(new ItemStack(Block.sand, 4), new Object[]{Block.sandStone});
@@ -333,5 +350,10 @@ public class ACMRecipes {
 	public static void addHoeRecipe(Object material, ItemHoe output)
 	{
 		GameRegistry.addRecipe(new ItemStack(output, 1), new Object[] {hoeRecipe[0], hoeRecipe[1], hoeRecipe[2], 'X', material, '#', Item.stick});
+	}
+	
+	public static void addStairsRecipe(Object material, BlockStairs output) {
+		
+		GameRegistry.addRecipe(new ItemStack(output, 4), new Object[]{"  #"," ##","###",'#', material});
 	}
 }

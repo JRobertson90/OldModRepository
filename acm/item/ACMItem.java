@@ -1,13 +1,13 @@
 package acm.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStairs;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
@@ -34,11 +34,11 @@ import acm.wearable.ItemFins;
 import acm.wearable.ItemNetherArmor;
 import acm.wearable.ItemStoneArmor;
 
-//Next Available ID = 3251
+//Next Available ID = 3277
 
 public class ACMItem {
 
-	public static final Item glassDoor = new ItemGlassDoor(3249).setCreativeTab(CreativeTabs.tabRedstone).setTextureName("acm:glass_door");
+	public static Item glassDoor = new ItemGlassDoor(3249).setCreativeTab(CreativeTabs.tabRedstone).setTextureName("acm:glass_door");
 
 	public static Item netheraniumIngot = new Item(3223).setCreativeTab(CreativeTabs.tabMaterials).setUnlocalizedName("nether_ingot").setTextureName("acm:netheranium_ingot");
 	

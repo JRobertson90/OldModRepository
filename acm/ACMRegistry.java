@@ -1,6 +1,8 @@
 package acm;
 
+import net.minecraft.block.BlockStairs;
 import acm.block.ACMBlock;
+import acm.block.BlockStairsWool;
 import acm.christmasChest.TileEntityChristmasChest;
 import acm.craftingChest.TileEntityCraftingChest;
 import acm.entity.ArrowExplosive;
@@ -23,6 +25,30 @@ public class ACMRegistry {
 		//-------------------
 		//   I T E M
 		//-------------------
+		BlockStairsWool.register();
+		
+		GameRegistry.registerBlock(ACMBlock.glassStairs, "glass_stairs");
+		GameRegistry.registerBlock(ACMBlock.dirtStairs, "dirt_stairs");
+		GameRegistry.registerBlock(ACMBlock.woodOakStairs, "wood_oak_stairs");
+		GameRegistry.registerBlock(ACMBlock.woodSpruceStairs, "wood_spruce_stairs");
+		GameRegistry.registerBlock(ACMBlock.woodBirchStairs, "wood_birch_stairs");
+		GameRegistry.registerBlock(ACMBlock.woodJungleStairs, "wood_jungle_stairs");
+		GameRegistry.registerBlock(ACMBlock.leavesOakStairs, "leaves_oak_stairs");
+		GameRegistry.registerBlock(ACMBlock.leavesSpruceStairs, "leaves_spruce_stairs");
+		GameRegistry.registerBlock(ACMBlock.leavesBirchStairs, "leaves_birch_stairs");
+		GameRegistry.registerBlock(ACMBlock.leavesJungleStairs, "leaves_jungle_stairs");
+		
+		LanguageRegistry.addName(ACMBlock.glassStairs, "Glass Stairs");
+		LanguageRegistry.addName(ACMBlock.dirtStairs, "Dirt Stairs");
+		LanguageRegistry.addName(ACMBlock.woodOakStairs, "Oak Wood Stairs");
+		LanguageRegistry.addName(ACMBlock.woodSpruceStairs, "Spruce Wood Stairs");
+		LanguageRegistry.addName(ACMBlock.woodBirchStairs, "Birch Wood Stairs");
+		LanguageRegistry.addName(ACMBlock.woodJungleStairs, "Jungle Wood Stairs");
+		LanguageRegistry.addName(ACMBlock.leavesOakStairs, "Oak Leaf Stairs");
+		LanguageRegistry.addName(ACMBlock.leavesSpruceStairs, "Spruce Leaf Stairs");
+		LanguageRegistry.addName(ACMBlock.leavesBirchStairs, "Birch Leaf Stairs");
+		LanguageRegistry.addName(ACMBlock.leavesJungleStairs, "Jungle Leaf Stairs");
+		
 		ItemBedColor.register();
 		
 		GameRegistry.registerBlock(ACMBlock.lightBlock, "light_block");
