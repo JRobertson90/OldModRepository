@@ -4,24 +4,16 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.server.MinecraftServer;
-import acm.ACM;
+import net.minecraft.util.MathHelper;
 import acm.item.ACMItem;
 import acm.melee.ItemShield;
 import acm.player.ExtendedPlayer;
 import acm.wearable.ItemFins;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -52,8 +44,36 @@ public class ACMTickHandler implements ITickHandler{
         	double randomValue = Math.random();
         	if(randomValue <= (double) props.netherArmorCount * 0.125)
         	{
-        		player.worldObj.spawnParticle("flame", player.posX-0.6+Math.random()*1.2, player.posY-0.5-Math.random()*0.5, player.posZ-0.6+Math.random()*1.2, 0, 0.15*Math.random(), 0);
-            	player.worldObj.spawnParticle("smoke", player.posX-0.6+Math.random()*1.2, player.posY-0.5-Math.random()*0.5, player.posZ-0.6+Math.random()*1.2, 0, 0.15*Math.random(), 0);
+
+        		int facing = getFacingDirectionWithDiagonals(player);
+//                System.out.println("Facing " + facing);
+        		
+        		// This code makes sure that particles spawn behind
+        		// the player so as to not obscure vision.
+        		int xSide = 0;
+        		int zSide = 0;
+        		
+        		switch(facing) {
+        		case 0: { xSide = 0; zSide = -1; break;}
+        		case 1: { xSide = 1; zSide = -1; break;}
+        		case 2: { xSide = 1; zSide = 0; break;}
+        		case 3: { xSide = 1; zSide = 1; break;}
+        		case 4: { xSide = 0; zSide = 1; break;}
+        		case 5: { xSide = -1; zSide = 1; break;}
+        		case 6: { xSide = -1; zSide = 0; break;}
+        		case 7: { xSide = -1; zSide = -1; break;}
+        		}
+        		
+        		final double DIST_FROM_PLAYER = 0.75; 
+        		
+        		player.worldObj.spawnParticle("flame",
+        				player.posX + Math.random() * .5 + xSide * DIST_FROM_PLAYER,
+        				player.posY - 0.5,
+        				player.posZ + Math.random() * .5 + zSide * DIST_FROM_PLAYER,
+        				0,
+        				0.15*Math.random(),
+        				0);
+//        		player.worldObj.spawnParticle("smoke", player.posX + xSide, player.posY-0.5-Math.random()*0.5, player.posZ + zSide, 0, 0.15*Math.random(), 0);
         	}
         	if(props.netherArmorCount == 4)
         	{
@@ -168,6 +188,21 @@ public class ACMTickHandler implements ITickHandler{
         }
 	}
 	
+	private int getFacingDirectionWithDiagonals(EntityPlayer player) {
+		
+		// Code taken from user flipflop: http://www.minecraftforge.net/forum/index.php?topic=6514.0
+		int yaw = (int)player.rotationYaw;
+
+        if (yaw<0)      //due to the yaw running a -360 to positive 360
+           yaw+=360;    //not sure why it's that way
+
+        yaw+=22;     //centers coordinates you may want to drop this line
+        yaw%=360;  //and this one if you want a strict interpretation of the zones
+
+        int facing = yaw/45;   //  360degrees divided by 45 == 8 zones
+		return facing;
+	}
+
 	public int getShieldStrengthValue(ItemStack input)
 	{
 		if(input != null)
