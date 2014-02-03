@@ -139,41 +139,6 @@ public class Floodlight {
 			world.setBlock(x,y,z, 0, 0, 0x0);
 			world.markBlockForUpdate(x,y,z);
 		}
-		
-//		TEBlockLightAir te = getBeamTileEntity(world, x, y, z);
-//		if (te != null) {
-//
-//			if(blockPlaced) {
-//				te.numOfSources++;
-//			}
-//			else {
-//				te.numOfSources--;
-//				checkIfShouldStay(te);
-//			}
-//		}
 	}
-
-//	public static void checkIfShouldStay(World world, int x, int y, int z) {
-//		
-//		TEBlockLightAir te = getBeamTileEntity(world, x, y, z);
-//		if (te != null) {
-//			checkIfShouldStay(te);
-//		}
-//	}
-//	public static void checkIfShouldStay(TEBlockLightAir te) {
-//		
-//		if (te.numOfSources == 0) {
-//			te.worldObj.setBlock(te.xCoord, te.yCoord, te.zCoord, 0, 0, 0x0);
-//			te.worldObj.markBlockForUpdate(te.xCoord, te.yCoord, te.zCoord);
-//		}	
-//	}
-//
-//	static TEBlockLightAir getBeamTileEntity(World world, int x, int y, int z) {
-//		TileEntity te = world.getBlockTileEntity(x, y, z);
-//		if (te instanceof TEBlockLightAir)
-//			return (TEBlockLightAir)te;
-//		else
-//			return null;
-//	}
 
 }

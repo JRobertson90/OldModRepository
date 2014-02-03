@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import acm.block.moses.BlockMosesAir;
+import acm.block.moses.BlockMosesStaff;
 import acm.christmasChest.BlockChristmasChest;
 import acm.craftingChest.BlockCraftingChest;
 import acm.lighting.BlockLight;
@@ -29,6 +31,11 @@ public class ACMBlock {
 	public static BlockStairs leavesSpruceStairs = (BlockStairs) new BlockStairsAlt(3274, Block.leaves, 1).setUnlocalizedName("leavesSpruceStairs").setHardness(0.2F).setLightOpacity(1).setStepSound(Block.soundGrassFootstep);
 	public static BlockStairs leavesBirchStairs = (BlockStairs) new BlockStairsAlt(3275, Block.leaves, 2).setUnlocalizedName("leavesBirchStairs").setHardness(0.2F).setLightOpacity(1).setStepSound(Block.soundGrassFootstep);
 	public static BlockStairs leavesJungleStairs = (BlockStairs) new BlockStairsAlt(3276, Block.leaves, 3).setUnlocalizedName("leavesJungleStairs").setHardness(0.2F).setLightOpacity(1).setStepSound(Block.soundGrassFootstep);
+	
+	public static Block mosesStaff = (new BlockMosesStaff(3277)).setHardness(1.0F).setResistance(5.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("blockMosesStaff").setTextureName("acm:moses_staff");
+	public static Block mosesAirBlock = (new BlockMosesAir(3278));
+	
+	
 	
 	public static final Block sulfurOre = new Block(4095, Material.ground).setHardness(3.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("oreSulfur").setCreativeTab(CreativeTabs.tabBlock).setTextureName("acm:sulfur_ore");
 	public static final Block potassiumOre = new Block(4094, Material.ground).setHardness(3.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("orePotassium").setCreativeTab(CreativeTabs.tabBlock).setTextureName("acm:potassium_ore");

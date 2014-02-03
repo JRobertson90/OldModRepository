@@ -16,6 +16,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import acm.block.ACMBlock;
 import acm.block.BlockStairsWool;
+import acm.block.moses.ItemMosesStaff;
 import acm.item.ACMItem;
 import acm.item.ItemBedColor;
 import acm.melee.ItemDagger;
@@ -27,6 +28,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 public class ACMRecipes {
 	public static void load() {
 		
+		ItemMosesStaff.addRecipe();
 		addStairsRecipe(Block.glass,ACMBlock.glassStairs);
 		addStairsRecipe(Block.dirt,ACMBlock.dirtStairs);
 		

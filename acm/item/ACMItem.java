@@ -1,7 +1,6 @@
 package acm.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStairs;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
@@ -13,6 +12,7 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemSword;
 import net.minecraftforge.common.EnumHelper;
+import acm.block.moses.ItemMosesStaff;
 import acm.melee.ItemDagger;
 import acm.melee.ItemNetherDagger;
 import acm.melee.ItemNetherShield;
@@ -34,10 +34,11 @@ import acm.wearable.ItemFins;
 import acm.wearable.ItemNetherArmor;
 import acm.wearable.ItemStoneArmor;
 
-//Next Available ID = 3277
+//Next Available ID = 3280
 
 public class ACMItem {
 
+	public static Item mosesStaff = new ItemMosesStaff(3279).setMaxStackSize(1).setUnlocalizedName("itemMosesStaff").setTextureName("acm:moses_staff");
 	public static Item glassDoor = new ItemGlassDoor(3249).setCreativeTab(CreativeTabs.tabRedstone).setTextureName("acm:glass_door");
 
 	public static Item netheraniumIngot = new Item(3223).setCreativeTab(CreativeTabs.tabMaterials).setUnlocalizedName("nether_ingot").setTextureName("acm:netheranium_ingot");

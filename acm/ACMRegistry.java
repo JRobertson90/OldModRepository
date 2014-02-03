@@ -25,6 +25,10 @@ public class ACMRegistry {
 		//-------------------
 		//   I T E M
 		//-------------------
+		GameRegistry.registerBlock(ACMBlock.mosesStaff, "block_moses_staff");
+		GameRegistry.registerItem(ACMItem.mosesStaff, "item_moses_staff");
+		LanguageRegistry.addName(ACMItem.mosesStaff, "Moses Staff");
+		
 		BlockStairsWool.register();
 		
 		GameRegistry.registerBlock(ACMBlock.glassStairs, "glass_stairs");
